@@ -1,5 +1,5 @@
 import { useRef } from "react";
-
+import { Link } from "react-router-dom";
 type Props = {};
 
 export default function Login({}: Props) {
@@ -46,9 +46,12 @@ export default function Login({}: Props) {
           <div className="text-center">
             <p className="text-base-content text-opacity-60">
               Don't have an account?{" "}
-              <button className="text-base-content transition-all duration-300 ease-in-out hover:underline underline-offset-2 text-opacity-80 hover:text-opacity-100 font-medium">
+              <Link
+                to={"/signup"}
+                className="text-base-content transition-all duration-300 ease-in-out hover:underline underline-offset-2 text-opacity-80 hover:text-opacity-100 font-medium"
+              >
                 Sign Up
-              </button>
+              </Link>
             </p>
           </div>
         </div>
