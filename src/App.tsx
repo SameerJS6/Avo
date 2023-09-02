@@ -1,17 +1,26 @@
-// import React from 'react'
 import Login from "./components/authentication/Login";
 import Hero from "./components/Hero";
 import Signup from "./components/authentication/Signup";
+import { Route, Routes } from "react-router-dom";
+import Account from "./components/Account";
+import Toast from "./components/Toast";
+import { useAuth } from "./context/AuthContext";
 
 type Props = {};
 
 export default function App({}: Props) {
+  const {
+    showAlert: { show },
+  } = useAuth();
   return (
     <main className="relative ">
-      {/* <Hero /> */}
-      {/* <Login /> */}
-      <Signup />
-
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/account" element={<Account />} />
+      </Routes>
+      {show && <Toast />}
       <div
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true"
