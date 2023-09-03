@@ -12,19 +12,7 @@ export default function Signup({}: Props) {
   const { signUp, setShowAlert } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      console.log("Error");
-
-      setShowAlert({
-        show: true,
-        type: "error",
-        message: "passwords do not match",
-      });
-      return;
-    }
-
+  const handleSignup = async () => {
     try {
       await signUp(username, password);
       setShowAlert({
@@ -40,6 +28,23 @@ export default function Signup({}: Props) {
       console.error(message);
     }
   };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      console.log("Error");
+
+      setShowAlert({
+        show: true,
+        type: "error",
+        message: "passwords do not match",
+      });
+      return;
+    }
+    handleSignup();
+  };
+
+ 
   return (
     <>
       <main className="grid place-content-center min-h-screen">
