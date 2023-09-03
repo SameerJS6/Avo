@@ -7,12 +7,14 @@ import {
 } from "react";
 import { auth } from "../Firebase/FirebaseConfig";
 import {
+  GoogleAuthProvider,
   User,
   UserCredential,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signOut,
+  signInWithPopup,
+  signOut
 } from "firebase/auth";
 
 type AuthProviderProps = {
@@ -32,6 +34,7 @@ type AuthContextProps = {
   setShowAlert: Dispatch<React.SetStateAction<ShowAlertType>>;
   logOut: () => Promise<void>;
   logIn: (email: string, password: string) => Promise<UserCredential>;
+  googleSignIn: () => Promise<UserCredential>;
 };
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -43,6 +46,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     type: "",
     message: "",
   });
+
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
 
   const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -58,8 +66,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
       if (currentUser) setUser(currentUser);
+      console.log(currentUser);
     });
 
     return () => unsubscribe();
@@ -75,7 +83,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, signUp, showAlert, setShowAlert, logOut, logIn }}
+      value={{
+        user,
+        signUp,
+        showAlert,
+        setShowAlert,
+        logOut,
+        logIn,
+        googleSignIn,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 type Props = {};
 
 export default function Signup({}: Props) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -14,7 +14,7 @@ export default function Signup({}: Props) {
 
   const handleSignup = async () => {
     try {
-      await signUp(username, password);
+      await signUp(email, password);
       setShowAlert({
         show: true,
         type: "success",
@@ -56,17 +56,17 @@ export default function Signup({}: Props) {
               onSubmit={handleSubmit}
               className="form-control w-full max-w-lg"
             >
-              <label htmlFor="username" className="label">
-                <span className="label-text">Username or E-mail</span>
+              <label htmlFor="email" className="label">
+                <span className="label-text">E-mail</span>
               </label>
               <input
                 type="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 autoFocus
-                id="username"
+                id="email"
                 required
-                placeholder="Enter Your Username"
+                placeholder="Enter Your email"
                 className="input input-bordered w-full max-w-lg"
               />
 

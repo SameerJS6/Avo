@@ -1,10 +1,11 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import GoogleSignIn from "../GoogleSignIn";
 type Props = {};
 
 export default function Login({}: Props) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -13,7 +14,7 @@ export default function Login({}: Props) {
   const handleLogIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await logIn(username, password);
+      await logIn(email, password);
       setShowAlert({
         show: true,
         type: "success",
@@ -33,22 +34,24 @@ export default function Login({}: Props) {
       <div className="card w-[500px] shadow-md hover:shadow-lg">
         <div className="card-body bg-base-200 bg-opacity-50 rounded-lg gap-8">
           <div className="space-y-4">
-            <h2 className="font-medium text-5xl">Login</h2>
+            <h2 className="font-medium text-5xl">Log In</h2>
             <p className="text-sm">Welcome back! Please enter your details</p>
           </div>
 
+          <GoogleSignIn />
+
           <form onSubmit={handleLogIn} className="form-control w-full max-w-lg">
-            <label htmlFor="username" className="label">
-              <span className="label-text">Username or E-mail</span>
+            <label htmlFor="email" className="label">
+              <span className="label-text">E-mail</span>
             </label>
             <input
               type="email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              id="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              id="email"
               required
               autoFocus
-              placeholder="Enter Your Username"
+              placeholder="Enter Your email"
               className="input input-bordered w-full max-w-lg"
             />
 
