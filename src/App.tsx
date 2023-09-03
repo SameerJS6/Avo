@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Account from "./components/Account";
 import Toast from "./components/Toast";
 import { useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 type Props = {};
 
@@ -18,7 +19,14 @@ export default function App({}: Props) {
         <Route path="/" element={<Hero />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/account" element={<Account />} />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       {show && <Toast />}
       <div
