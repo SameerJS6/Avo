@@ -1,24 +1,28 @@
 import { Route, Routes } from "react-router-dom";
-import { Button } from "./components/ui/button";
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
 import { Toaster } from "./components/ui/toaster";
-import { toast } from "./components/ui/use-toast";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Account from "./components/Account";
 
 type Props = {};
 
 export default function App({}: Props) {
   return (
-    <main className="grid min-h-screen place-content-center">
-      {/* Hello World */}
-      <Button
-        onClick={() => {
-          toast({
-            title: "Scheduled: Catch up",
-            description: "Friday, February 10, 2023 at 5:57 PM",
-          });
-        }}
-      >
-        Hello World
-      </Button>
+    <main className="grid place-content-center min-h-screen">
+      <Routes>
+        <Route path="/" element={<h1>Hello World</h1>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
       <Toaster />
     </main>
   );
