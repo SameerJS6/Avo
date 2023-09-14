@@ -4,6 +4,8 @@ import Signup from "./components/Auth/Signup";
 import { Toaster } from "./components/ui/toaster";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Account from "./components/Account";
+import Home from "./pages/Home";
+import CreateTodo from "./pages/CreateTodo";
 
 type Props = {};
 
@@ -14,6 +16,22 @@ export default function App({}: Props) {
         <Route path="/" element={<h1>Hello World</h1>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-todo"
+          element={
+            <ProtectedRoute>
+              <CreateTodo />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/account"
           element={
