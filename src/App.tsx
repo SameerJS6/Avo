@@ -3,15 +3,17 @@ import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import { Toaster } from "./components/ui/toaster";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Account from "./components/Account";
 import Home from "./pages/Home";
 import CreateTodo from "./pages/CreateTodo";
+import Navbar from "./components/Navbar";
+import RecycleBin from "./pages/RecycleBin";
 
 type Props = {};
 
 export default function App({}: Props) {
   return (
-    <main className="grid place-content-center min-h-screen">
+    <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<h1>Hello World</h1>} />
         <Route path="/login" element={<Login />} />
@@ -21,27 +23,20 @@ export default function App({}: Props) {
           element={
             <ProtectedRoute>
               <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/create-todo"
-          element={
-            <ProtectedRoute>
               <CreateTodo />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/account"
+          path="/trash"
           element={
             <ProtectedRoute>
-              <Account />
+              <RecycleBin />
             </ProtectedRoute>
           }
         />
       </Routes>
       <Toaster />
-    </main>
+    </>
   );
 }
