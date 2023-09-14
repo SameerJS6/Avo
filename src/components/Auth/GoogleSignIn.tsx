@@ -17,7 +17,7 @@ export default function GoogleSignIn({}: Props) {
     try {
       setIsLoading(true);
       await loginWithGoogle();
-      navigate("/account");
+      navigate("/home");
       setIsLoading(false);
       toast({
         title: "Successfully Logged In With Google Account",
@@ -33,11 +33,6 @@ export default function GoogleSignIn({}: Props) {
           description: "You've Closed the Sign In Popup Window",
         });
       }
-      //   toast({
-      //     variant: "destructive",
-      //     title: "Failed to Logged In",
-      //     description: err.message,
-      //   });
     }
   };
   return (

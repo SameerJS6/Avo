@@ -48,7 +48,7 @@ export default function Signup({}: Props) {
       setIsLoading(true);
       await signUp(email, password);
       console.log(currentUser);
-      navigate("/account");
+      navigate("/home");
       setIsLoading(false);
       toast({
         title: "Successfully Logged In",
@@ -61,7 +61,7 @@ export default function Signup({}: Props) {
   };
 
   useEffect(() => {
-    if (currentUser) return navigate("/account");
+    if (currentUser) return navigate("/home");
   }, [currentUser]);
 
   return (

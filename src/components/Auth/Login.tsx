@@ -46,7 +46,7 @@ export default function Login({}: Props) {
         description: "You have Successfully Logged in you Account",
       });
       setIsLoading(false);
-      navigate("/account");
+      navigate("/home");
     } catch (err: any) {
       setIsLoading(false);
       if (err.code === "auth/wrong-password") {
@@ -73,7 +73,7 @@ export default function Login({}: Props) {
 
   useEffect(() => {
     if (currentUser) {
-      return navigate("/account");
+      return navigate("/home");
     }
   }, [currentUser]);
 
