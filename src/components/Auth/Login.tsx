@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -10,11 +10,12 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import GoogleLogo from "../../assets/Google.png";
 import { Separator } from "../ui/separator";
 import { useAuth } from "@/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "../ui/use-toast";
+import GoogleSignIn from "./GoogleSignIn";
+import { ToastAction } from "../ui/toast";
 
 type Props = {};
 
@@ -23,6 +24,7 @@ export default function Login({}: Props) {
   const [password, setPassword] = useState("");
   const { login, currentUser } = useAuth();
   const navigate = useNavigate();
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -43,9 +45,34 @@ export default function Login({}: Props) {
       });
       navigate("/account");
     } catch (err: any) {
-      console.error(err.message, err.code);
+      if (err.code === "auth/wrong-password") {
+        toast({
+          variant: "destructive",
+          title: "Failed To Logged In!!",
+          description: "Please Enter the Correct Password",
+        });
+      }
+      if (err.code === "auth/user-not-found") {
+        toast({
+          variant: "destructive",
+          title: "Failed To Logged In!!",
+          description: "Account Does Not Exits",
+          action: (
+            <ToastAction altText="Create a Account">
+              <Link to="/signup">Create a Account</Link>
+            </ToastAction>
+          ),
+        });
+      }
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      return navigate("/account");
+    }
+  }, [currentUser]);
+
   return (
     <>
       <Card className="w-[350px]">
@@ -58,10 +85,7 @@ export default function Login({}: Props) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button className="w-full gap-2 " variant="outline" size="lg">
-            <img className="w-5" src={GoogleLogo} alt="Google Sign Logo" />
-            Google
-          </Button>
+          <GoogleSignIn />
           <Separator className="my-5" />
           <form onSubmit={handleSubmit}>
             <div className="grid w-full gap-4 items-center">

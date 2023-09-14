@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -54,6 +54,10 @@ export default function Signup({}: Props) {
       console.error(err.code, err.message);
     }
   };
+
+  useEffect(() => {
+    if (currentUser) return navigate("/account");
+  }, [currentUser]);
 
   return (
     <Card className="w-[350px]">
