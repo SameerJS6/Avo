@@ -22,7 +22,7 @@ export default function CreateTodo({}: Props) {
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <Tooltip
-          content="Create a New Note"
+          content="Create A New Note"
           closeDelay={50}
           color="foreground"
           classNames={{
@@ -32,7 +32,7 @@ export default function CreateTodo({}: Props) {
           <DialogTrigger asChild>
             <Button
               size="icon"
-              className="fixed bottom-12 right-8 sm:right-12 lg:bottom-16 lg:right-16 p-8 transition-all duration-250 ease-in-out shadow-lg rounded-2xl"
+              className="fixed bottom-12 right-8 sm:right-12 lg:bottom-16 lg:right-16 p-8 transition-all duration-250 ease-in-out shadow-lg rounded-2xl active:scale-95"
             >
               <div>
                 <svg
@@ -51,13 +51,13 @@ export default function CreateTodo({}: Props) {
             </Button>
           </DialogTrigger>
         </Tooltip>
-        <DialogContent className="px-4">
+        <DialogContent className="createModalWidth rounded-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold tracking-tight">
               Create Note
             </DialogTitle>
             <DialogDescription>
-              To create a note, simply enter a title and start typing.
+              To create a note, Simply enter a title and start typing.
             </DialogDescription>
           </DialogHeader>
           <div>
@@ -69,7 +69,7 @@ export default function CreateTodo({}: Props) {
                     type="text"
                     id="title"
                     autoComplete="off"
-                    className="text-lg font-semibold py-5"
+                    className=" sm:text-lg font-semibold max-sm:leading-7 sm:py-5 placeholder:font-medium placeholder:tracking-[0.15px]"
                     placeholder="Enter your Title"
                   />
                 </div>
@@ -90,7 +90,9 @@ export default function CreateTodo({}: Props) {
             <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
               Cancel
             </Button>
-            <Button>Create</Button>
+            <Button className="active:scale-95 transition-all duration-250 ease-in-out">
+              Create
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

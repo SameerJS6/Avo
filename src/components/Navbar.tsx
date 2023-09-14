@@ -39,7 +39,7 @@ export default function Navbar({}: Props) {
             </div>
           </Link>
         </NavbarItem>
-        <NavbarItem>
+        <NavbarItem className="hidden sm:flex">
           <Link to="/trash" className={buttonVariants({ variant: "outline" })}>
             <div className="flex gap-1 5 items-center">
               <svg

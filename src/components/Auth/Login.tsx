@@ -80,7 +80,7 @@ export default function Login({}: Props) {
   return (
     <>
       <main className="centered">
-        <Card className="w-[350px]">
+        <Card className="modalWidth">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold tracking-tight">
               Log In
