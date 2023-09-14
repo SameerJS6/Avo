@@ -51,7 +51,7 @@ export default function Signup({}: Props) {
       navigate("/home");
       setIsLoading(false);
       toast({
-        title: "Successfully Logged In",
+        title: "Successfully Logged In!!!",
         description: "You have Successfully Created Your Account",
       });
     } catch (err: any) {
@@ -65,69 +65,71 @@ export default function Signup({}: Props) {
   }, [currentUser]);
 
   return (
-    <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle className="text-2xl font-semibold tracking-tight">
-          Create an account
-        </CardTitle>
-        <CardDescription className="leading-4">
-          Enter your email below to create your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit}>
-          <div className="grid w-full gap-4 items-center">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                placeholder="Enter your Email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+    <main className="centered">
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle className="text-2xl font-semibold tracking-tight">
+            Create an account
+          </CardTitle>
+          <CardDescription className="leading-4">
+            Enter your email below to create your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <div className="grid w-full gap-4 items-center">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  placeholder="Enter your Email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  placeholder="Enter your Password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="passwordConfirmation">
+                  Password Confirmation
+                </Label>
+                <Input
+                  type="text"
+                  placeholder="Confirm your Password"
+                  id="passwordConfirmation"
+                  value={passwordConfirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                />
+              </div>
+              <Button
+                disabled={isLoading}
+                size="lg"
+                className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+              >
+                {isLoading ? <Spinner size="sm" color="default" /> : null}
+                {isLoading ? "Signing Up..." : "Sign Up"}
+              </Button>
             </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                type="password"
-                placeholder="Enter your Password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="passwordConfirmation">
-                Password Confirmation
-              </Label>
-              <Input
-                type="text"
-                placeholder="Confirm your Password"
-                id="passwordConfirmation"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-              />
-            </div>
-            <Button
-              disabled={isLoading}
-              size="lg"
-              className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2"
-            >
-              {isLoading ? <Spinner size="sm" color="default" /> : null}
-              {isLoading ? "Signing Up..." : "Sign Up"}
+          </form>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-2">
+          <CardDescription>
+            Already have an Account!
+            <Button variant="link" className="p-0 ml-1">
+              <Link to="/login">Log In</Link>
             </Button>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex flex-col gap-2">
-        <CardDescription>
-          Already have an Account!
-          <Button variant="link" className="p-0 ml-1">
-            <Link to="/login">Log In</Link>
-          </Button>
-        </CardDescription>
-      </CardFooter>
-    </Card>
+          </CardDescription>
+        </CardFooter>
+      </Card>
+    </main>
   );
 }
