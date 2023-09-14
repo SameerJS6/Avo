@@ -16,12 +16,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "../ui/use-toast";
 import GoogleSignIn from "./GoogleSignIn";
 import { ToastAction } from "../ui/toast";
+import { Spinner } from "@nextui-org/react";
 
 type Props = {};
 
 export default function Login({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { login, currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -37,14 +39,16 @@ export default function Login({}: Props) {
     }
 
     try {
+      setIsLoading(true);
       await login(email, password);
-      console.log(currentUser);
       toast({
         title: "Successfully Logged In",
         description: "You have Successfully Logged in you Account",
       });
+      setIsLoading(false);
       navigate("/account");
     } catch (err: any) {
+      setIsLoading(false);
       if (err.code === "auth/wrong-password") {
         toast({
           variant: "destructive",
@@ -110,7 +114,13 @@ export default function Login({}: Props) {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <Button className="w-full">Log In</Button>
+              <Button
+                disabled={isLoading}
+                className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+              >
+                {isLoading ? <Spinner size="sm" color="default" /> : null}
+                {isLoading ? "Logging In..." : "Log In"}
+              </Button>
             </div>
           </form>
         </CardContent>

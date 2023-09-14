@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "../ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { Spinner } from "@nextui-org/react";
 
 type Props = {};
 
@@ -20,6 +21,7 @@ export default function Signup({}: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { signUp, currentUser } = useAuth();
   const navigate = useNavigate();
 
@@ -38,20 +40,23 @@ export default function Signup({}: Props) {
       return toast({
         variant: "destructive",
         title: "Password Does Not Match!!",
-        description: "You've Entered Wrong Password",
+        description: "Check The Enterd Password Again",
       });
     }
 
     try {
+      setIsLoading(true);
       await signUp(email, password);
       console.log(currentUser);
       navigate("/account");
+      setIsLoading(false);
       toast({
         title: "Successfully Logged In",
         description: "You have Successfully Created Your Account",
       });
     } catch (err: any) {
-      console.error(err.code, err.message);
+      setIsLoading(false);
+      console.error(err.code);
     }
   };
 
@@ -104,8 +109,13 @@ export default function Signup({}: Props) {
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
               />
             </div>
-            <Button size="lg" className="w-full">
-              <Link to="/account">Sign Up</Link>
+            <Button
+              disabled={isLoading}
+              size="lg"
+              className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+            >
+              {isLoading ? <Spinner size="sm" color="default" /> : null}
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </Button>
           </div>
         </form>

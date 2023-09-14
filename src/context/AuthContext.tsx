@@ -1,4 +1,5 @@
 import { auth, googleProvider } from "@/Service/FirebaseConfig";
+import { Spinner } from "@nextui-org/react";
 import {
   User,
   UserCredential,
@@ -61,6 +62,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{ currentUser, logout, signUp, login, loginWithGoogle }}
     >
+      {isWaiting && (
+        <main className="grid place-content-center min-h-screen">
+          <Spinner size="lg" />
+        </main>
+      )}
       {!isWaiting && children}
     </AuthContext.Provider>
   );
