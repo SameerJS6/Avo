@@ -11,13 +11,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useNotes } from "@/context/NotesContext";
 import { Tooltip } from "@nextui-org/react";
-import { useState } from "react";
 
 type Props = {};
 
 export default function CreateTodo({}: Props) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const {
+    isDialogOpen,
+    setIsDialogOpen,
+    noteTitle,
+    noteDescription,
+    setNoteDescription,
+    setNoteTitle,
+    createTodo,
+  } = useNotes();
+
   return (
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -69,6 +78,8 @@ export default function CreateTodo({}: Props) {
                     type="text"
                     id="title"
                     autoComplete="off"
+                    value={noteTitle}
+                    onChange={(e) => setNoteTitle(e.target.value)}
                     className=" sm:text-lg font-semibold max-sm:leading-7 sm:py-5 placeholder:font-medium placeholder:tracking-[0.15px]"
                     placeholder="Enter your Title"
                   />
@@ -80,6 +91,8 @@ export default function CreateTodo({}: Props) {
                     placeholder="Type your Description here."
                     id="description"
                     className="leading-6"
+                    value={noteDescription}
+                    onChange={(e) => setNoteDescription(e.target.value)}
                   />
                 </div>
               </div>
@@ -90,7 +103,10 @@ export default function CreateTodo({}: Props) {
             <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
               Cancel
             </Button>
-            <Button className="active:scale-95 transition-all duration-250 ease-in-out">
+            <Button
+              onClick={createTodo}
+              className="active:scale-95 transition-all duration-250 ease-in-out"
+            >
               Create
             </Button>
           </DialogFooter>
