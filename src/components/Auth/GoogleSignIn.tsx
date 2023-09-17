@@ -17,7 +17,7 @@ export default function GoogleSignIn({}: Props) {
     try {
       setIsLoading(true);
       await loginWithGoogle();
-      navigate("/home");
+      navigate("/dashboard");
       setIsLoading(false);
       toast({
         title: "Successfully Logged In With Google Account",

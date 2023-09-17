@@ -53,7 +53,7 @@ export default function Logout({}: Props) {
         <Button
           disabled={isLoading}
           onClick={handleStatus}
-          variant="default"
+          variant="outline"
           className="gap-2"
         >
           {isLoading ? (

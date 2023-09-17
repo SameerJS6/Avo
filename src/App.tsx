@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import CreateTodo from "./pages/CreateTodo";
 import Navbar from "./components/Navbar";
-import RecycleBin from "./pages/RecycleBin";
+import Dashboard from "./pages/Dashboard";
 
 type Props = {};
 
@@ -15,26 +15,18 @@ export default function App({}: Props) {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<h1>Hello World</h1>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
         <Route
-          path="/home"
+          path="/dashboard"
           element={
             <ProtectedRoute>
-              <Home />
+              <Dashboard />
               <CreateTodo />
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/trash"
-          element={
-            <ProtectedRoute>
-              <RecycleBin />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       <Toaster />
     </>
