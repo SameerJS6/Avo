@@ -17,31 +17,28 @@ import {
   useState,
   Dispatch,
   useEffect,
+  ChangeEvent,
 } from "react";
 import { useAuth } from "./AuthContext";
 
 interface NoteContextTypes {
+  // Todos Types
   todos: [] | TodoTypes[];
-  setTodos: Dispatch<React.SetStateAction<[] | TodoTypes[]>>;
-
-  isDialogOpen: boolean;
-  setIsDialogOpen: Dispatch<React.SetStateAction<boolean>>;
-  noteTitle: string;
-  setNoteTitle: Dispatch<React.SetStateAction<string>>;
-  noteDescription: string;
-  setNoteDescription: Dispatch<React.SetStateAction<string>>;
-  isCompleted: boolean;
-  setIsCompleted: Dispatch<React.SetStateAction<boolean>>;
-  isEditing: boolean;
-  setIsEditing: Dispatch<React.SetStateAction<boolean>>;
+  todoDetails: TodoDetailsTypes;
+  handleTodoDetails: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  // Loading
+  isWaiting: isWaitingTypes;
+  setIsWaiting: Dispatch<React.SetStateAction<isWaitingTypes>>;
+  // Editing
   editingTodo: [] | TodoTypes[];
   setEditingTodo: Dispatch<React.SetStateAction<[] | TodoTypes[]>>;
-
+  // CRUD Functions
+  editTodo: () => Promise<void>;
   createTodo: () => Promise<void>;
   removeTodo: (id: string) => Promise<void>;
-  editTodo: () => Promise<void>;
   handleEditDialog: (id: string) => void;
-  isTodoFetching: boolean;
 }
 
 type TodoTypes = {
@@ -49,6 +46,18 @@ type TodoTypes = {
   title?: string;
   description?: string;
   completed?: boolean;
+};
+
+type TodoDetailsTypes = {
+  title: string;
+  description: string;
+  isCompleted?: boolean;
+};
+
+type isWaitingTypes = {
+  isDialogOpen: boolean;
+  isEditing: boolean;
+  isTodoFetching: boolean;
 };
 
 type NotesProviderProps = {
@@ -59,12 +68,12 @@ const NotesContext = createContext({} as NoteContextTypes);
 
 const NotesProvider = ({ children }: NotesProviderProps) => {
   const [todos, setTodos] = useState<TodoTypes[] | []>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [noteTitle, setNoteTitle] = useState("");
-  const [noteDescription, setNoteDescription] = useState("");
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isTodoFetching, setIsTodoFetching] = useState(false);
+  const [todoDetails, setTodoDetails] = useState({} as TodoDetailsTypes);
+  const [isWaiting, setIsWaiting] = useState<isWaitingTypes>({
+    isDialogOpen: false,
+    isEditing: false,
+    isTodoFetching: false,
+  });
   const [editingTodo, setEditingTodo] = useState<TodoTypes[] | []>([]);
 
   const { currentUser } = useAuth();
@@ -83,14 +92,20 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
 
   useEffect(() => {
     if (userId) {
-      setIsTodoFetching(true);
+      setIsWaiting((prevIsWaiting) => ({
+        ...prevIsWaiting,
+        isTodoFetching: true,
+      }));
       const unsubsribe = onSnapshot(todosCollectionRef, (snapshot) => {
         const filteredData = snapshot.docs.map((dos) => ({
           ...dos.data(),
           id: dos.id,
         }));
         setTodos(filteredData);
-        setIsTodoFetching(false);
+        setIsWaiting((prevIsWaiting) => ({
+          ...prevIsWaiting,
+          isTodoFetching: false,
+        }));
         snapshot.docChanges().map((change) => {
           if (change.type === "modified") {
             toast({
@@ -116,18 +131,21 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
   const createTodo = async () => {
     try {
       await addDoc(todosCollectionRef, {
-        title: noteTitle,
-        description: noteDescription,
-        isCompleted: isCompleted,
-        userId: currentUser?.uid,
+        title: todoDetails.title,
+        description: todoDetails.description,
+        isCompleted: false,
       });
       toast({
         title: "Todo Created!!!",
         description: "You have successfully created a todo",
       });
-      setIsDialogOpen(false);
-      setNoteTitle("");
-      setNoteDescription("");
+
+      setIsWaiting((prevIsWaiting) => ({
+        ...prevIsWaiting,
+        isDialogOpen: false,
+      }));
+
+      setTodoDetails({ title: "", description: "" });
     } catch (err: any) {
       console.log(err.code, err.message);
     }
@@ -146,7 +164,10 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
   const handleEditDialog = (id: string) => {
     const currentTodo = todos.filter((todo) => todo.id === id);
     setEditingTodo(currentTodo);
-    setIsEditing(true);
+    setIsWaiting((prevIsWaiting) => ({
+      ...prevIsWaiting,
+      isEditing: true,
+    }));
   };
   // Editing Todo Function
   const editTodo = async () => {
@@ -157,34 +178,38 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
         title: todoToEdit.title,
         description: todoToEdit.description,
       });
-      setIsEditing(!isEditing);
+      setIsWaiting((prevIsWaiting) => ({
+        ...prevIsWaiting,
+        isEditing: false,
+      }));
     } catch (err: any) {
       console.log(err.code, err.message);
     }
   };
 
+  // Updating Input Value Function
+  const handleTodoDetails = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setTodoDetails((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
   return (
     <NotesContext.Provider
       value={{
         todos,
-        setTodos,
-        isDialogOpen,
-        setIsDialogOpen,
-        noteTitle,
-        setNoteTitle,
-        noteDescription,
-        setNoteDescription,
-        isCompleted,
-        setIsCompleted,
+        todoDetails,
+        editingTodo,
+        isWaiting,
         removeTodo,
         createTodo,
         editTodo,
-        isEditing,
-        setIsEditing,
+        setIsWaiting,
         handleEditDialog,
-        editingTodo,
         setEditingTodo,
-        isTodoFetching,
+        handleTodoDetails,
       }}
     >
       {children}
