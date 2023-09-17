@@ -39,13 +39,17 @@ interface NoteContextTypes {
   createTodo: () => Promise<void>;
   removeTodo: (id: string) => Promise<void>;
   handleEditDialog: (id: string) => void;
+  updateComplete: (
+    id: string,
+    e: ChangeEvent<HTMLInputElement>
+  ) => Promise<void>;
 }
 
 type TodoTypes = {
   id: string;
-  title?: string;
-  description?: string;
-  completed?: boolean;
+  title: string;
+  description: string;
+  isCompleted: boolean;
 };
 
 type TodoDetailsTypes = {
@@ -97,9 +101,11 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
         isTodoFetching: true,
       }));
       const unsubsribe = onSnapshot(todosCollectionRef, (snapshot) => {
-        const filteredData = snapshot.docs.map((dos) => ({
-          ...dos.data(),
-          id: dos.id,
+        const filteredData: TodoTypes[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          title: doc.data().title || "",
+          description: doc.data().description || "",
+          isCompleted: doc.data().isCompleted || false,
         }));
         setTodos(filteredData);
         setIsWaiting((prevIsWaiting) => ({
@@ -122,7 +128,6 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
         });
       });
 
-      console.log(currentUser?.uid);
       return unsubsribe;
     }
   }, [userId]);
@@ -187,6 +192,22 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
     }
   };
 
+  // Edit Complete Function
+  const updateComplete = async (
+    id: string,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    // const currentTodo = todos.filter((todo) => todo.id === id);
+    const todo = doc(db, "todos", userId!, "documents", id);
+    try {
+      await updateDoc(todo, {
+        isCompleted: e.target.checked,
+      });
+    } catch (err: any) {
+      console.log(err.code, err.message);
+    }
+  };
+
   // Updating Input Value Function
   const handleTodoDetails = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -209,6 +230,7 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
         setIsWaiting,
         handleEditDialog,
         setEditingTodo,
+        updateComplete,
         handleTodoDetails,
       }}
     >
