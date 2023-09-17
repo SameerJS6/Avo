@@ -3,10 +3,12 @@ import { toast } from "@/components/ui/use-toast";
 import {
   deleteDoc,
   doc,
-  getDocs,
   collection,
   addDoc,
   updateDoc,
+  onSnapshot,
+  CollectionReference,
+  DocumentData,
 } from "firebase/firestore";
 import {
   ReactNode,
@@ -16,6 +18,7 @@ import {
   Dispatch,
   useEffect,
 } from "react";
+import { useAuth } from "./AuthContext";
 
 interface NoteContextTypes {
   todos: [] | TodoTypes[];
@@ -34,11 +37,11 @@ interface NoteContextTypes {
   editingTodo: [] | TodoTypes[];
   setEditingTodo: Dispatch<React.SetStateAction<[] | TodoTypes[]>>;
 
-  getTodosCollection: () => Promise<void>;
   createTodo: () => Promise<void>;
   removeTodo: (id: string) => Promise<void>;
   editTodo: () => Promise<void>;
   handleEditDialog: (id: string) => void;
+  isTodoFetching: boolean;
 }
 
 type TodoTypes = {
@@ -61,31 +64,67 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
   const [noteDescription, setNoteDescription] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isTodoFetching, setIsTodoFetching] = useState(false);
   const [editingTodo, setEditingTodo] = useState<TodoTypes[] | []>([]);
 
-  const todosCollectionRef = collection(db, "todos");
+  const { currentUser } = useAuth();
+  let userId: string | undefined;
 
-  const getTodosCollection = async () => {
-    try {
-      const data = await getDocs(todosCollectionRef);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTodos(filteredData);
-    } catch (err: any) {
-      console.log(err.code, err.message);
+  if (currentUser && currentUser?.uid) {
+    userId = currentUser.uid;
+  } else {
+    userId = "";
+  }
+
+  let todosCollectionRef: CollectionReference<DocumentData, DocumentData>;
+  if (userId) {
+    todosCollectionRef = collection(db, "todos", userId, "documents");
+  }
+
+  useEffect(() => {
+    if (userId) {
+      setIsTodoFetching(true);
+      const unsubsribe = onSnapshot(todosCollectionRef, (snapshot) => {
+        const filteredData = snapshot.docs.map((dos) => ({
+          ...dos.data(),
+          id: dos.id,
+        }));
+        setTodos(filteredData);
+        setIsTodoFetching(false);
+        snapshot.docChanges().map((change) => {
+          if (change.type === "modified") {
+            toast({
+              title: "Todo Updated!!!",
+              description: "You have successfully updated a todo",
+            });
+          }
+          if (change.type === "removed") {
+            toast({
+              title: "Todo Removed!!!",
+              description: "You have successfully removed a todo",
+            });
+          }
+        });
+      });
+
+      console.log(currentUser?.uid);
+      return unsubsribe;
     }
-  };
+  }, [userId]);
 
+  // Create Todo Function
   const createTodo = async () => {
     try {
       await addDoc(todosCollectionRef, {
         title: noteTitle,
         description: noteDescription,
         isCompleted: isCompleted,
+        userId: currentUser?.uid,
       });
-      getTodosCollection();
+      toast({
+        title: "Todo Created!!!",
+        description: "You have successfully created a todo",
+      });
       setIsDialogOpen(false);
       setNoteTitle("");
       setNoteDescription("");
@@ -94,49 +133,35 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
     }
   };
 
+  // Remove or Delete Todo
   const removeTodo = async (id: string) => {
     try {
-      const todo = doc(db, "todos", id);
+      const todo = doc(db, "todos", userId!, "documents", id);
       await deleteDoc(todo);
-      toast({
-        title: "Todo Removed!!!",
-        description: "You have successfully removed a todo",
-      });
-      getTodosCollection();
     } catch (err: any) {
       console.log(err.code, err.message);
     }
   };
-
+  // Select the Editing Todo Fucntion
   const handleEditDialog = (id: string) => {
-      const currentTodo = todos.filter((todo) => todo.id === id);
-      setEditingTodo(currentTodo)
-      setIsEditing(true)
-    };
-
+    const currentTodo = todos.filter((todo) => todo.id === id);
+    setEditingTodo(currentTodo);
+    setIsEditing(true);
+  };
+  // Editing Todo Function
   const editTodo = async () => {
-    const todoToEdit = editingTodo[0]
-    const todo = doc(db, "todos", todoToEdit.id);
+    const todoToEdit = editingTodo[0];
+    const todo = doc(db, "todos", userId!, "documents", todoToEdit.id);
     try {
       await updateDoc(todo, {
         title: todoToEdit.title,
         description: todoToEdit.description,
       });
-      getTodosCollection();
-      setIsEditing(!isEditing)
-      toast({
-        title: "Todo Updated!!!",
-        description: "You have successfully updated a todo",
-      });
+      setIsEditing(!isEditing);
     } catch (err: any) {
       console.log(err.code, err.message);
     }
-  }
-
-
-  useEffect(() => {
-    getTodosCollection();
-  }, []);
+  };
 
   return (
     <NotesContext.Provider
@@ -153,13 +178,13 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
         setIsCompleted,
         removeTodo,
         createTodo,
-        getTodosCollection,
         editTodo,
         isEditing,
         setIsEditing,
         handleEditDialog,
         editingTodo,
-        setEditingTodo
+        setEditingTodo,
+        isTodoFetching,
       }}
     >
       {children}
