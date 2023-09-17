@@ -9,9 +9,9 @@ import { Spinner } from "@nextui-org/react";
 type Props = {};
 
 export default function Home({}: Props) {
-  const { todos, removeTodo, handleEditDialog, isTodoFetching } = useNotes();
+  const { todos, removeTodo, handleEditDialog, isWaiting } = useNotes();
 
-  if (isTodoFetching) return <Spinner size="lg" className="centered" />;
+  if (isWaiting.isTodoFetching) return <Spinner size="lg" className="centered" />;
 
   if (todos.length === 0)
     return <h1 className="centered">Nothing to see here!</h1>;
@@ -27,7 +27,7 @@ export default function Home({}: Props) {
           return (
             <article
               key={title}
-              className="bg-secondary break-inside-avoid mb-4 sm:mb-4 text-secondary-foreground p-4 rounded-xl space-y-4 hover:shadow-md group border border-primary-50 hover:border-primary-100"
+              className="bg-secondary break-inside-avoid mb-4 sm:mb-4 text-secondary-foreground p-4 rounded-xl space-y-4 hover:shadow-md group border border-primary-100 hover:border-primary-200"
             >
               <div className="flex items-center justify-between">
                 <h1 className="text-xl font-semibold tracking-tight">

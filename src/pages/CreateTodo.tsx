@@ -18,18 +18,23 @@ type Props = {};
 
 export default function CreateTodo({}: Props) {
   const {
-    isDialogOpen,
-    setIsDialogOpen,
-    noteTitle,
-    noteDescription,
-    setNoteDescription,
-    setNoteTitle,
+    isWaiting,
+    setIsWaiting,
+    todoDetails,
+    handleTodoDetails,
     createTodo,
   } = useNotes();
 
+  const handleCloseDialog = () => {
+    setIsWaiting((prevIsWaiting) => ({
+      ...prevIsWaiting,
+      isDialogOpen: !prevIsWaiting.isDialogOpen,
+    }));
+  };
+
   return (
     <>
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isWaiting.isDialogOpen} onOpenChange={handleCloseDialog}>
         <Tooltip
           content="Create A New Note"
           closeDelay={50}
@@ -70,16 +75,17 @@ export default function CreateTodo({}: Props) {
             </DialogDescription>
           </DialogHeader>
           <div>
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
               <div className="grid w-full gap-4 items-center">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="title">Title</Label>
                   <Input
                     type="text"
                     id="title"
+                    name="title"
                     autoComplete="off"
-                    value={noteTitle}
-                    onChange={(e) => setNoteTitle(e.target.value)}
+                    value={(todoDetails && todoDetails?.title) || ""}
+                    onChange={handleTodoDetails}
                     className=" sm:text-lg font-semibold max-sm:leading-7 sm:py-5 placeholder:font-medium placeholder:tracking-[0.15px]"
                     placeholder="Enter your Title"
                   />
@@ -90,9 +96,10 @@ export default function CreateTodo({}: Props) {
                     rows={3}
                     placeholder="Type your Description here."
                     id="description"
+                    name="description"
                     className="leading-6"
-                    value={noteDescription}
-                    onChange={(e) => setNoteDescription(e.target.value)}
+                    value={(todoDetails && todoDetails?.description) || ""}
+                    onChange={handleTodoDetails}
                   />
                 </div>
               </div>
@@ -100,7 +107,7 @@ export default function CreateTodo({}: Props) {
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+            <Button variant="outline" onClick={handleCloseDialog}>
               Cancel
             </Button>
             <Button

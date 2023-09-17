@@ -16,10 +16,16 @@ import { useNotes } from "@/context/NotesContext";
 type EditTodoProps = {};
 
 export default function EditTodo({}: EditTodoProps) {
-  const { editingTodo, editTodo, isEditing, setIsEditing, setEditingTodo } =
+  const { editingTodo, editTodo, setEditingTodo, isWaiting, setIsWaiting } =
     useNotes();
+
+    const handleCloseEditModal = () => {
+      setIsWaiting(prevIsWaiting => ({
+        ...prevIsWaiting, isEditing: false
+      }))
+    }
   return (
-    <Dialog open={isEditing} onOpenChange={setIsEditing}>
+    <Dialog open={isWaiting.isEditing} onOpenChange={handleCloseEditModal}>
       <DialogContent className="createModalWidth rounded-lg">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold tracking-tight">
@@ -71,7 +77,7 @@ export default function EditTodo({}: EditTodoProps) {
         </div>
 
         <DialogFooter className="gap-2 sm:gap-0">
-          <Button onClick={() => setIsEditing(false)} variant="outline">
+          <Button onClick={handleCloseEditModal} variant="outline">
             Cancel
           </Button>
           <Button
