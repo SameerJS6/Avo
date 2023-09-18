@@ -1,8 +1,7 @@
-import { Tooltip } from "@nextui-org/react";
-import { Button } from "./ui/button";
 import { useNotes } from "@/context/NotesContext";
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
 import { Checkbox } from "@nextui-org/react";
+import EditButton from "./EditButton";
+import DeleteButton from "./DeleteButton";
 
 type TodoProps = {
   id: string;
@@ -17,59 +16,45 @@ export default function Todo({
   id,
   isCompleted,
 }: TodoProps) {
-  const { removeTodo, handleEditDialog, updateComplete } = useNotes();
+  const { updateComplete } = useNotes();
 
   return (
     <article
       key={title}
-      className="relative bg-secondary break-inside-avoid mb-4 sm:mb-4 text-secondary-foreground p-4 rounded-xl space-y-4 hover:shadow-md group border border-primary-100 hover:border-primary-200"
+      data-overlay = {isCompleted}
+      className={`${
+        isCompleted
+          ? "bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through scale-[97%]"
+          : "group bg-gradient-to-tl from-secondary text-secondary-foreground hover:shadow-md  scale-100 hover:border-primary/20"
+      } relative break-inside-avoid mb-4 sm:mb-4  p-4 rounded-xl space-y-2 border border-border md:space-y-4 transition-all duration-250 ease-in-out`}
     >
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
-        <Tooltip
-          content="Delete Note"
-          closeDelay={50}
-          color="foreground"
-          classNames={{
-            base: "py-2 px-4 shadow-xl rounded-lg",
-          }}
-        >
-          <Button
-            onClick={() => removeTodo(id)}
-            variant="destructive"
-            size="icon"
-            className="pointer-events-none group-hover:pointer-events-auto opacity-0 group-hover:opacity-100 rounded-xl transition-all duration-250 ease-in-out"
-          >
-            <TrashIcon />
-          </Button>
-        </Tooltip>
-      </div>
-      <div className="space-y-2">
-        <p className="leading-6">{description}</p>
-        <Tooltip
-          content="Edit Note"
-          closeDelay={50}
-          color="foreground"
-          classNames={{
-            base: "py-2 px-4 shadow-xl rounded-lg",
-          }}
-        >
-          <Button
-            onClick={() => handleEditDialog(id)}
-            size="icon"
-            variant="outline"
-            className="pointer-events-none opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto tranition-all duration-250 ease-soft-spring"
-          >
-            <Pencil1Icon />
-          </Button>
-        </Tooltip>
-      </div>
+      <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
+        {title}
+      </h1>
 
-      <input
-        type="checkbox"
-        checked={isCompleted}
-        onChange={(e) => updateComplete(id, e)}
-      />
+      <div className="">
+        <p className="leading-6">{description}</p>
+      </div>
+      <div className="flex items-center flex-row-reverse justify-between gap-4">
+        <div className="space-x-4">
+          <EditButton id={id} />
+          <DeleteButton id={id} />
+        </div>
+        <form
+          className={`${
+            isCompleted
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+          }   transition-all duration-250 ease-soft-spring`}
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <Checkbox
+            radius="sm"
+            isSelected={isCompleted}
+            onChange={(e) => updateComplete(id, e)}
+          />
+        </form>
+      </div>
     </article>
   );
 }

@@ -88,3 +88,12 @@
   width: calc(100vw - 2rem);
   max-width: 512px;
 }
+
+article[data-overlay="false"]::after,
+article[data-overlay="true"]::after {
+  @apply absolute inset-0 transition-all duration-250 ease-in-out content-[""] bg-gradient-to-bl from-primary/5 to-background pointer-events-none -z-10 rounded-xl opacity-0 scale-95;
+}
+
+article:hover[data-overlay="false"]::after {
+  @apply opacity-100 scale-100;
+}
