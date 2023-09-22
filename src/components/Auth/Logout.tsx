@@ -5,9 +5,11 @@ import { toast } from "../ui/use-toast";
 import { Button, buttonVariants } from "../ui/button";
 import { Spinner } from "@nextui-org/react";
 
-type Props = {};
+type LogoutProps = {
+  style?: boolean
+};
 
-export default function Logout({}: Props) {
+export default function Logout({ style = false }: LogoutProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ export default function Logout({}: Props) {
         <Button
           disabled={isLoading}
           onClick={handleStatus}
-          variant="outline"
+          variant={style ? "ghost" : "outline"}
           className="gap-2"
         >
           {isLoading ? (
