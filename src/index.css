@@ -97,3 +97,26 @@ article[data-overlay="true"]::after {
 article:hover[data-overlay="false"]::after {
   @apply opacity-100 scale-100;
 }
+
+/* Scroll Bar Styling  */
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 100vmax;
+  background-color: hsl(var(--background));
+}
+
+::-webkit-scrollbar-track {
+  margin-block: 0.25rem;
+}
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--foreground));
+  border-radius: 100vmax;
+}
+
+@supports (scrollbar-color: white black) {
+  * {
+    scrollbar-color: hsl(var(--foreground)) hsl(var(--background));
+    scrollbar-width: thin;
+  }
+}
