@@ -6,9 +6,10 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { Link, NavLink } from "react-router-dom";
-import { buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import Logout from "./Auth/Logout";
-import { SunIcon } from "@radix-ui/react-icons";
+import Sidebar from "./Sidebar";
+import ThemeToggle from "./ThemeToggle";
 
 type Props = {};
 
@@ -16,12 +17,20 @@ export default function Navbar({}: Props) {
   return (
     <NavbarUI shouldHideOnScroll>
       <NavbarBrand>
-        <Link to="/" className="font-bold text-3xl text-inherit">
-          ACME
-        </Link>
+        <div className="flex items-center justify-between w-full">
+          <Link to="/" className="font-bold text-3xl text-inherit">
+            ACME
+          </Link>
+          <div className="grid lg:hidden items-center">
+            <Sidebar />
+          </div>
+        </div>
       </NavbarBrand>
 
-      <NavbarContent justify="end" className="items-center">
+      <NavbarContent
+        justify="end"
+        className="items-center gap-8 hidden lg:flex"
+      >
         <Tooltip
           content="View Todos"
           closeDelay={50}
@@ -31,38 +40,20 @@ export default function Navbar({}: Props) {
           }}
         >
           <NavbarItem isActive>
-            <NavLink
-              to="/dashboard"
-              className={buttonVariants({ variant: "ghost", size: "icon" })}
-              
-            >
-              <div className="flex gap-1.5 items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-                  />
-                </svg>
-              </div>
+            <NavLink to="/dashboard">
+              <Button variant="secondary">Todos</Button>
             </NavLink>
           </NavbarItem>
         </Tooltip>
-        <NavbarItem
-          className={buttonVariants({ variant: "ghost", size: "icon" })}
-        >
-          <SunIcon />
-        </NavbarItem>
-        <NavbarItem className="flex">
-          <Logout />
-        </NavbarItem>
+
+        <div className="flex gap-2">
+          <NavbarItem>
+            <ThemeToggle />
+          </NavbarItem>
+          <NavbarItem className="flex">
+            <Logout />
+          </NavbarItem>
+        </div>
       </NavbarContent>
     </NavbarUI>
   );
