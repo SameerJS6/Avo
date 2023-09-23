@@ -32,13 +32,13 @@ export default function Todo({
       data-overlay={isCompleted}
       className={`${
         isCompleted
-          ? "bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through scale-[97%]"
+          ? "bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through completedTodo"
           : "group bg-gradient-to-tl from-secondary text-secondary-foreground hover:shadow-md scale-100 hover:border-primary/20"
       } relative p-4 grid rounded-xl space-y-2 border border-border md:space-y-4 transition-all duration-250 ease-in-out`}
       variants={{
         hidden: (index) => ({
           opacity: 0,
-          y: 10 * index,
+          y: 20 * index,
         }),
         visible: (index) => ({
           opacity: 1,

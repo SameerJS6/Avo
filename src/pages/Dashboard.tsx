@@ -17,7 +17,7 @@ export default function Dashboard({}: Props) {
     return (
       <motion.h1
         className="centered"
-        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+        initial={{ opacity: 0, y: 25, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
@@ -26,10 +26,15 @@ export default function Dashboard({}: Props) {
     );
 
   return (
-    <main className="py-8 px-4 sm:py-16 sm:px-8 lg:p-24 xl:p-28 xl:py-20 space-y-10 md:space-y-16">
-      <h1 className="text-4xl uppercase tracking-tight sm:text-5xl lg:text-6xl">
+    <main className="max-w-[1980px] mx-auto py-8 px-4 sm:py-16 sm:px-8 lg:p-24 xl:p-28 xl:py-20 space-y-10 md:space-y-16">
+      <motion.h1
+        className="text-4xl uppercase font-bold tracking-tighter sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         Todos
-      </h1>
+      </motion.h1>
       <div className="grid min-[550px]:grid-cols-2 lg:grid-cols-3 gap-4">
         <AnimatePresence>
           {todos.map((todo, index) => {
