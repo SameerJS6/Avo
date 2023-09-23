@@ -46,7 +46,7 @@ export default function CreateTodo({}: Props) {
           <DialogTrigger asChild>
             <Button
               size="icon"
-              className="fixed bottom-12 right-8 sm:right-12 lg:bottom-16 lg:right-16 p-8 transition-all duration-250 ease-in-out shadow-lg rounded-2xl active:scale-95"
+              className="fixed bottom-12 right-8 sm:right-12 lg:bottom-16 lg:right-16 p-8 transition-all duration-250 ease-in-out shadow-lg rounded-2xl active:scale-95 slide-in"
             >
               <div>
                 <svg

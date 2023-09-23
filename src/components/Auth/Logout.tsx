@@ -6,7 +6,7 @@ import { Button, buttonVariants } from "../ui/button";
 import { Spinner } from "@nextui-org/react";
 
 type LogoutProps = {
-  style?: boolean
+  style?: boolean;
 };
 
 export default function Logout({ style = false }: LogoutProps) {
@@ -55,7 +55,7 @@ export default function Logout({ style = false }: LogoutProps) {
         <Button
           disabled={isLoading}
           onClick={handleStatus}
-          variant={style ? "ghost" : "outline"}
+          variant={style ? "ghost" : "default"}
           className="gap-2"
         >
           {isLoading ? (
@@ -76,7 +76,7 @@ export default function Logout({ style = false }: LogoutProps) {
               />
             </svg>
           )}
-          {isLoading ? "Logging Out..." : "Log Out"}
+          <p className="lg:hidden">{isLoading ? "Logging Out..." : "Log Out"}</p>
         </Button>
       )}
     </>

@@ -13,7 +13,7 @@ export default function ThemeToggle() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">
+        <Button className="max-lg:border max-lg:border-input bg-transparent text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground">
           <div className="flex max-lg:gap-2 items-center rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0">
             <SunIcon className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <p className="lg:hidden">Light</p>
