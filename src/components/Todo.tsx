@@ -34,7 +34,7 @@ export default function Todo({
         isCompleted
           ? "bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through completedTodo"
           : "group bg-gradient-to-tl from-secondary text-secondary-foreground hover:shadow-md scale-100 hover:border-primary/20"
-      } relative p-4 grid rounded-xl space-y-2 border border-border md:space-y-4 transition-all duration-250 ease-in-out`}
+      } relative p-4 grid rounded-xl space-y-2 border border-border md:space-y-4 transition-all duration-250 ease-in-out isolate`}
       variants={{
         hidden: (index) => ({
           opacity: 0,
