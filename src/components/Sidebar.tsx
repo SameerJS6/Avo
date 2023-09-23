@@ -8,14 +8,15 @@ import {
 import Logout from "./Auth/Logout";
 import ThemeToggle from "./ThemeToggle";
 import { NavLink } from "react-router-dom";
-import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import {useState} from 'react'
 
 type Props = {};
 
 export default function Sidebar({}: Props) {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -35,21 +36,38 @@ export default function Sidebar({}: Props) {
 
       <SheetContent>
         <SheetHeader className="text-left">
-          <SheetTitle>ACME</SheetTitle>
+          <SheetTitle>AVO</SheetTitle>
         </SheetHeader>
 
         <div className="my-12 gap-4 flex flex-col">
           <NavLink
-            to="/dashboard"
-            // className={buttonVariants({ variant: "ghost" })}
+            to="/"
+            onClick={()=> setIsOpen(false)}
+            className={({ isActive }) =>
+              isActive
+                ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
+            }
           >
-            <Button variant="default" className="w-full">
-              Todos
-            </Button>
+            Home
+          </NavLink>
+          {/* </NavbarItem> */}
+          {/* <NavbarItem> */}
+          <NavLink
+            to="/dashboard"
+            onClick={()=> setIsOpen(false)}
+            className={({ isActive }) =>
+              isActive
+                ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
+            }
+          >
+            {/* <Button variant="ghost">Todos</Button> */}
+            Todos
           </NavLink>
           <ThemeToggle />
           <Separator className="my-2" />
-          <Logout style={true} />
+          <Logout style />
         </div>
       </SheetContent>
     </Sheet>
