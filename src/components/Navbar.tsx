@@ -68,6 +68,10 @@ export default function Navbar({}: Props) {
       {!currentUser && (
         <NavbarContent justify="end">
           <NavbarItem>
+            <ThemeToggle show/>
+          </NavbarItem>
+
+          <NavbarItem>
             <Logout style />
           </NavbarItem>
         </NavbarContent>
