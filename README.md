@@ -1,4 +1,4 @@
-# React + TypeScript + Vite - ACME - FULL STACK TODO APPLICATION
+# React + TypeScript + Vite - Avo - FULL STACK TODO APPLICATION
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
