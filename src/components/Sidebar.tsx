@@ -6,15 +6,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Logout from "./Auth/Logout";
-import ThemeToggle from "./ThemeToggle";
 import { NavLink } from "react-router-dom";
 import { Separator } from "./ui/separator";
-import {useState} from 'react'
+import { useState } from "react";
 
 type Props = {};
 
 export default function Sidebar({}: Props) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger>
@@ -42,7 +41,7 @@ export default function Sidebar({}: Props) {
         <div className="my-12 gap-4 flex flex-col">
           <NavLink
             to="/"
-            onClick={()=> setIsOpen(false)}
+            onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               isActive
                 ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
@@ -51,21 +50,17 @@ export default function Sidebar({}: Props) {
           >
             Home
           </NavLink>
-          {/* </NavbarItem> */}
-          {/* <NavbarItem> */}
           <NavLink
             to="/dashboard"
-            onClick={()=> setIsOpen(false)}
+            onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               isActive
                 ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
             }
           >
-            {/* <Button variant="ghost">Todos</Button> */}
             Todos
           </NavLink>
-          <ThemeToggle />
           <Separator className="my-2" />
           <Logout style />
         </div>

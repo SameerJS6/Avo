@@ -23,7 +23,8 @@ export default function Navbar({}: Props) {
             AVO
           </Link>
           {currentUser && (
-            <div className="grid lg:hidden items-center">
+            <div className="flex gap-2 lg:hidden items-center">
+              <ThemeToggle />
               <Sidebar />
             </div>
           )}
@@ -68,7 +69,7 @@ export default function Navbar({}: Props) {
       {!currentUser && (
         <NavbarContent justify="end">
           <NavbarItem>
-            <ThemeToggle show/>
+            <ThemeToggle />
           </NavbarItem>
 
           <NavbarItem>
