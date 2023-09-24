@@ -14,6 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "../ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@nextui-org/react";
+import { motion } from "framer-motion";
 
 type Props = {};
 
@@ -65,7 +66,12 @@ export default function Signup({}: Props) {
   }, [currentUser]);
 
   return (
-    <main className="centered">
+    <motion.main
+      className="centered"
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       <Card className="modalWidth">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold tracking-tight">
@@ -130,6 +136,6 @@ export default function Signup({}: Props) {
           </CardDescription>
         </CardFooter>
       </Card>
-    </main>
+    </motion.main>
   );
 }
