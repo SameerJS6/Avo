@@ -11,7 +11,7 @@ import { ThemeProvider } from "./context/ThemeContent.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="system" storageKey="avo-theme">
         <NextUIProvider>
           <AuthProvider>
             <NotesProvider>
