@@ -7,7 +7,11 @@ import {
 } from "@/components/ui/popover";
 import { useTheme } from "@/context/ThemeContent";
 
-export default function ThemeToggle() {
+type ThemeToggleProps = {
+  show?: boolean
+}
+
+export default function ThemeToggle({show = false}: ThemeToggleProps) {
   const { setTheme } = useTheme();
 
   return (
@@ -16,11 +20,11 @@ export default function ThemeToggle() {
         <Button className="max-lg:border max-lg:border-input bg-transparent text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground">
           <div className="flex max-lg:gap-2 items-center rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0">
             <SunIcon className="h-[1.1rem] w-[1.1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <p className="lg:hidden">Light</p>
+            <p className={show ? "hidden" : "lg:hidden"}>Light</p>
           </div>
           <div className="absolute flex max-lg:gap-2 items-center rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100">
             <MoonIcon className="h-[1.1rem] w-[1.1rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <p className="lg:hidden">Dark</p>
+            <p className={show ? "hidden" : "lg:hidden"}>Dark</p>
           </div>
           <span className="sr-only">Toggle theme</span>
         </Button>
