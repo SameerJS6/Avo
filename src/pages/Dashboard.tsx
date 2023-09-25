@@ -5,11 +5,55 @@ import { Spinner } from "@nextui-org/react";
 import Todo from "@/components/Todo";
 import { AnimatePresence, motion } from "framer-motion";
 import FilterTodos from "@/components/FilterTodos";
+import {
+  DndContext,
+  closestCenter,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { useState } from "react";
 
 type Props = {};
 
 export default function Dashboard({}: Props) {
-  const { todos, isWaiting } = useNotes();
+  const { todos, isWaiting, setTodos } = useNotes();
+  const [activeId, setActiveId] = useState<null | number | string>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10
+    }
+  })
+ const sensors = useSensors(mouseSensor, useSensor(TouchSensor), useSensor(KeyboardSensor))
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id);
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active.id === over?.id) return setIsDragging(false);
+    setTodos((prevTodos) => {
+      const oldIndex = prevTodos.findIndex((todo) => todo.id === active.id);
+      const newIndex = prevTodos.findIndex((todo) => todo.id === over?.id);
+      return arrayMove(prevTodos, oldIndex, newIndex);
+    });
+    setIsDragging(false);
+    setActiveId(null);
+  };
 
   if (isWaiting.isTodoFetching)
     return <Spinner size="lg" className="centered" />;
@@ -39,13 +83,45 @@ export default function Dashboard({}: Props) {
         </motion.h1>
         <FilterTodos />
       </div>
-      <div className="grid min-[550px]:grid-cols-2 lg:grid-cols-3 gap-4">
-        <AnimatePresence>
-          {todos.map((todo, index) => {
-            return <Todo key={todo.id} {...todo} index={index} />;
-          })}
-        </AnimatePresence>
-      </div>
+      <DndContext
+      sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="grid min-[550px]:grid-cols-2 lg:grid-cols-3 gap-4">
+          <AnimatePresence>
+            <SortableContext items={todos} strategy={rectSortingStrategy}>
+              {todos.map((todo, index) => {
+                return (
+                  <Todo
+                    key={todo.id}
+                    {...todo}
+                    index={index}
+                    isDragging={isDragging}
+                  />
+                );
+              })}
+            </SortableContext>
+          </AnimatePresence>
+        </div>
+
+        <DragOverlay>
+          {todos
+            .filter((todo) => todo.id === activeId)
+            .map((item) => {
+              return (
+                <Todo
+                  key={item.id}
+                  {...item}
+                  index={0}
+                  isDragging={isDragging}
+                />
+              );
+            })}
+          {/* <p>Active Todo Overlay {activeId}</p> */}
+        </DragOverlay>
+      </DndContext>
       <CreateTodo />
       <EditTodo />
     </main>
