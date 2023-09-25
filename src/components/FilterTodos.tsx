@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import { useNotes } from "@/context/NotesContext";
@@ -9,21 +9,23 @@ export default function FilterTodos({}: Props) {
   const { setTodos, todosBackup } = useNotes();
   const [filterType, setFilterType] = useState("all");
 
-  const handleTodoFilter = (filter: string) => {
-    switch (filter) {
+  useEffect(() => {
+    // const setFilterType = (filter: string) => {
+    switch (filterType) {
       case "active":
-        setFilterType(filter);
-        setTodos(todosBackup.filter((todo) => todo.isCompleted !== true));
+        // setFilterType(filter);
+        setTodos(todosBackup.filter((todo) => todo.isCompleted === false));
         break;
       case "completed":
-        setFilterType(filter);
+        // setFilterType(filter);
         setTodos(todosBackup.filter((todo) => todo.isCompleted === true));
         break;
       default:
-        setFilterType("all");
+        // setFilterType("all");
         setTodos(todosBackup);
     }
-  };
+    // };
+  }, [filterType, todosBackup]);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -43,7 +45,7 @@ export default function FilterTodos({}: Props) {
           <Button
             variant={filterType === "all" ? "secondary" : "ghost"}
             className="justify-start px-2"
-            onClick={() => handleTodoFilter("all")}
+            onClick={() => setFilterType("all")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +64,7 @@ export default function FilterTodos({}: Props) {
           <Button
             variant={filterType === "active" ? "secondary" : "ghost"}
             className="justify-start px-2"
-            onClick={() => handleTodoFilter("active")}
+            onClick={() => setFilterType("active")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +83,7 @@ export default function FilterTodos({}: Props) {
           <Button
             variant={filterType === "completed" ? "secondary" : "ghost"}
             className="justify-start px-2"
-            onClick={() => handleTodoFilter("completed")}
+            onClick={() => setFilterType("completed")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
