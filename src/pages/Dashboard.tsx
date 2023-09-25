@@ -27,7 +27,7 @@ export default function Dashboard({}: Props) {
     );
 
   return (
-    <main className="max-w-[1980px] mx-auto py-8 px-4 sm:py-16 sm:px-8 lg:p-24 xl:p-28 xl:py-20 space-y-10 md:space-y-16">
+    <main className="max-w-[1980px] minHeight mx-auto py-8 px-4 sm:py-16 sm:px-8 lg:p-24 xl:p-28 xl:py-20 space-y-10 md:space-y-16">
       <div className="flex justify-between items-center md:items-end gap-4">
         <motion.h1
           className="w-[5.5ch] text-4xl uppercase font-bold tracking-tighter sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
