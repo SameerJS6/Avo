@@ -80,6 +80,9 @@
   place-content: center;
   min-height: calc(100dvh - 64px);
 }
+.minHeight {
+  min-height: calc(100dvh - 64px);
+}
 .modalWidth {
   width: calc(100vw - 2rem);
   max-width: 350px;
