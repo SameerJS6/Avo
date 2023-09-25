@@ -5,9 +5,10 @@ import { Pencil1Icon } from '@radix-ui/react-icons';
 
 type EditButtonProps = {
     id: string
+    isCompleted: boolean
 }
 
-export default function EditButton({id}: EditButtonProps) {
+export default function EditButton({id, isCompleted}: EditButtonProps) {
     const {handleEditDialog} = useNotes()
   return (
     <Tooltip
@@ -16,14 +17,17 @@ export default function EditButton({id}: EditButtonProps) {
       placement="bottom"
       color="foreground"
       classNames={{
-        base: "py-2 px-4 shadow-xl rounded-lg",
+        base: "p-2 text-xs shadow-xl rounded-lg",
       }}
     >
       <Button
         onClick={() => handleEditDialog(id)}
         size="icon"
         variant="outline"
-        className="pointer-events-none opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto tranition-all duration-250 ease-soft-spring"
+        disabled={isCompleted}
+        className={`${
+          isCompleted ? "pointer-events-none disabled:opacity-0 " : null
+        } ointer-events-none invisible group-hover:visible group-focus-visible:visible group-focus-visible:opacity-100 group-focus-visible:pointer-events-auto opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto tranition-all duration-250 ease-in-outp`}
       >
         <Pencil1Icon />
       </Button>
