@@ -56,7 +56,7 @@ export default function Logout({ style = false }: LogoutProps) {
           disabled={isLoading}
           onClick={handleStatus}
           variant={style ? "ghost" : "default"}
-          className="gap-2"
+          className="gap-2 lg:px-2"
         >
           {isLoading ? (
             <Spinner size="sm" color="default" />
@@ -76,7 +76,9 @@ export default function Logout({ style = false }: LogoutProps) {
               />
             </svg>
           )}
-          <p className="lg:hidden">{isLoading ? "Logging Out..." : "Log Out"}</p>
+          <p className="lg:hidden">
+            {isLoading ? "Logging Out..." : "Log Out"}
+          </p>
         </Button>
       )}
     </>
