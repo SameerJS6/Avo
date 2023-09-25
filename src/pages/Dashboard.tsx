@@ -4,6 +4,7 @@ import EditTodo from "./EditTodo";
 import { Spinner } from "@nextui-org/react";
 import Todo from "@/components/Todo";
 import { AnimatePresence, motion } from "framer-motion";
+import FilterTodos from "@/components/FilterTodos";
 
 type Props = {};
 
@@ -27,14 +28,17 @@ export default function Dashboard({}: Props) {
 
   return (
     <main className="max-w-[1980px] mx-auto py-8 px-4 sm:py-16 sm:px-8 lg:p-24 xl:p-28 xl:py-20 space-y-10 md:space-y-16">
-      <motion.h1
-        className="text-4xl uppercase font-bold tracking-tighter sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
-        initial={{ opacity: 0, y: 25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        Todos
-      </motion.h1>
+      <div className="flex justify-between items-center md:items-end gap-4">
+        <motion.h1
+          className="w-[5.5ch] text-4xl uppercase font-bold tracking-tighter sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Todos
+        </motion.h1>
+        <FilterTodos />
+      </div>
       <div className="grid min-[550px]:grid-cols-2 lg:grid-cols-3 gap-4">
         <AnimatePresence>
           {todos.map((todo, index) => {

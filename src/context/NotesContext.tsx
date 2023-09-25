@@ -24,7 +24,9 @@ import { useAuth } from "./AuthContext";
 interface NoteContextTypes {
   // Todos Types
   todos: [] | TodoTypes[];
+  todosBackup: [] | TodoTypes[];
   todoDetails: TodoDetailsTypes;
+  setTodos: Dispatch<React.SetStateAction<[] | TodoTypes[]>>;
   handleTodoDetails: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -72,6 +74,7 @@ const NotesContext = createContext({} as NoteContextTypes);
 
 const NotesProvider = ({ children }: NotesProviderProps) => {
   const [todos, setTodos] = useState<TodoTypes[] | []>([]);
+  const [todosBackup, setTodosBackup] = useState<TodoTypes[] | []>([]);
   const [todoDetails, setTodoDetails] = useState({} as TodoDetailsTypes);
   const [isWaiting, setIsWaiting] = useState<isWaitingTypes>({
     isDialogOpen: false,
@@ -108,6 +111,7 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
           isCompleted: doc.data().isCompleted || false,
         }));
         setTodos(filteredData);
+        setTodosBackup(filteredData);
         setIsWaiting((prevIsWaiting) => ({
           ...prevIsWaiting,
           isTodoFetching: false,
@@ -221,6 +225,7 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
     <NotesContext.Provider
       value={{
         todos,
+        todosBackup,
         todoDetails,
         editingTodo,
         isWaiting,
@@ -228,6 +233,7 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
         createTodo,
         editTodo,
         setIsWaiting,
+        setTodos,
         handleEditDialog,
         setEditingTodo,
         updateComplete,
