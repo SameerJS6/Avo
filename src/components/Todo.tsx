@@ -53,14 +53,12 @@ export default function Todo({
         isDragging ? "pointer-events-none" : "pointer-events-auto"
       } relative p-4 grid rounded-xl space-y-2 border border-border md:space-y-4 transition-all duration-250 ease-in-out isolate touch-manipulation`}
       variants={{
-        hidden: (index) => ({
+        hidden: () => ({
           opacity: 0,
-          bottom: -10 * index,
         }),
         visible: (index) => ({
           opacity: 1,
-          bottom: 0,
-          transition: { delay: index * 0.05 },
+          transition: { delay: index * 0.075 },
         }),
         removed: {
           opacity: 0,
