@@ -7,9 +7,7 @@ import {
 } from "@/components/ui/popover";
 import { useTheme } from "@/context/ThemeContent";
 
-type ThemeToggleProps = {
-  // show?: boolean
-};
+type ThemeToggleProps = {};
 
 export default function ThemeToggle({}: ThemeToggleProps) {
   const { setTheme } = useTheme();
