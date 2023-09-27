@@ -75,23 +75,6 @@
   }
 }
 
-.centered {
-  display: grid;
-  place-content: center;
-  min-height: calc(100dvh - 64px);
-}
-.minHeight {
-  min-height: calc(100dvh - 64px);
-}
-.modalWidth {
-  width: calc(100vw - 2rem);
-  max-width: 350px;
-}
-.createModalWidth {
-  width: calc(100vw - 2rem);
-  max-width: 512px;
-}
-
 article[data-overlay="false"]::after,
 article[data-overlay="true"]::after {
   @apply absolute inset-0 transition-all duration-250 ease-in-out content-[""] bg-gradient-to-bl from-primary/5 to-background pointer-events-none z-[-1] rounded-xl opacity-0 scale-95;
@@ -99,7 +82,7 @@ article[data-overlay="true"]::after {
 
 article:hover[data-overlay="false"]::after {
   @apply opacity-100 scale-100;
-}
+} 
 
 /* Scroll Bar Styling  */
 ::-webkit-scrollbar {
@@ -125,8 +108,24 @@ article:hover[data-overlay="false"]::after {
 
 /* Utility Class  */
 .completedTodo {
-  scale: 97%;
-  opacity: 0.75 !important;
+  scale: 95%
+}
+
+.centered {
+  display: grid;
+  place-content: center;
+  min-height: calc(100dvh - 64px);
+}
+.minHeight {
+  min-height: calc(100dvh - 64px);
+}
+.modalWidth {
+  width: calc(100vw - 2rem);
+  max-width: 350px;
+}
+.createModalWidth {
+  width: calc(100vw - 2rem);
+  max-width: 512px;
 }
 
 /* Animation  */
