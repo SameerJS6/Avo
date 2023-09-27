@@ -10,6 +10,8 @@ import Sidebar from "./Sidebar";
 import ThemeToggle from "./ThemeToggle";
 import { Separator } from "./ui/separator";
 import { useAuth } from "@/context/AuthContext";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { buttonVariants } from "./ui/button";
 
 type Props = {};
 
@@ -57,6 +59,15 @@ export default function Navbar({}: Props) {
 
           <div className="flex gap-2">
             <NavbarItem>
+              <a
+                target="_blank"
+                href="https://github.com/SameerJS6"
+                className={buttonVariants({ variant: "ghost", size: "icon" })}
+              >
+                <GitHubLogoIcon height={18} width={18} />
+              </a>
+            </NavbarItem>
+            <NavbarItem>
               <ThemeToggle />
             </NavbarItem>
             <NavbarItem>
@@ -68,6 +79,16 @@ export default function Navbar({}: Props) {
 
       {!currentUser && (
         <NavbarContent justify="end">
+          <NavbarItem>
+            <a
+              target="_blank"
+              href="https://github.com/SameerJS6"
+              className={buttonVariants({ variant: "ghost", size: "icon" })}
+            >
+              <GitHubLogoIcon height={18} width={18} />
+            </a>
+          </NavbarItem>
+
           <NavbarItem>
             <ThemeToggle />
           </NavbarItem>

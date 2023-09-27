@@ -9,6 +9,8 @@ import Logout from "./Auth/Logout";
 import { NavLink } from "react-router-dom";
 import { Separator } from "./ui/separator";
 import { useState } from "react";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { buttonVariants } from "./ui/button";
 
 type Props = {};
 
@@ -63,6 +65,17 @@ export default function Sidebar({}: Props) {
           </NavLink>
           <Separator className="my-2" />
           <Logout style />
+        </div>
+        <div className="fixed bottom-8 ">
+          <a
+            target="_blank"
+            href="https://github.com/SameerJS6"
+            className={buttonVariants({ variant: "ghost", size: "lg" })}
+          >
+            <div className="flex gap-2 items-center">
+              <GitHubLogoIcon height={18} width={18} /> Github
+            </div>
+          </a>
         </div>
       </SheetContent>
     </Sheet>
