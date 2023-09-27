@@ -22,7 +22,7 @@ export default function CustomCheckbox({id, isCompleted}: CheckboxProps) {
       <form
         className={`${
           isCompleted
-            ? "opacity-75 pointer-events-auto"
+            ? "opacity-50 pointer-events-auto"
             : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto invisible group-hover:visible group-focus-visible:visible group-focus-visible:opacity-100 group-focus-visible:pointer-events-auto "
         }   tranition-all duration-250 ease-in-out`}
         onSubmit={(e) => e.preventDefault()}

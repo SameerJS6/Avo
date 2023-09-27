@@ -44,7 +44,6 @@ export default function Todo({
       ref={setNodeRef}
       data-overlay={isCompleted}
       style={dndStyle}
-      layout
       className={`${
         isCompleted
           ? "bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through completedTodo"
@@ -69,7 +68,11 @@ export default function Todo({
       exit="removed"
       custom={index}
     >
-      <div className="flex justify-between items-center gap-4">
+      <div
+        className={`${
+          isCompleted ? "opacity-50" : ""
+        } flex justify-between items-center gap-4`}
+      >
         <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
           {title}
         </h1>
@@ -90,7 +93,9 @@ export default function Todo({
         </Button>
       </div>
 
-      <p className="leading-6">{description}</p>
+      <p className={`${isCompleted ? "opacity-50" : ""} leading-6`}>
+        {description}
+      </p>
 
       <div className="flex items-center self-end flex-row-reverse justify-between gap-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-250 ease-in-out">
         <div className="space-x-2">
