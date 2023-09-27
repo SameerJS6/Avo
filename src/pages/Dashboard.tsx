@@ -63,14 +63,17 @@ export default function Dashboard({}: Props) {
 
   if (todos.length === 0)
     return (
-      <motion.h1
-        className="centered"
-        initial={{ opacity: 0, y: 25, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        Nothing to see here!
-      </motion.h1>
+      <main>
+        <motion.h1
+          className="centered bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
+          initial={{ opacity: 0, y: 25, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Nothing to see here!
+        </motion.h1>
+        <CreateTodo />
+      </main>
     );
 
   return (
