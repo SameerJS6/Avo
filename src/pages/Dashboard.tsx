@@ -1,7 +1,6 @@
 import { useNotes } from "@/context/NotesContext";
 import CreateTodo from "./CreateTodo";
 import EditTodo from "./EditTodo";
-import { Spinner } from "@nextui-org/react";
 import Todo from "@/components/Todo";
 import { AnimatePresence, motion } from "framer-motion";
 import FilterTodos from "@/components/FilterTodos";
@@ -23,6 +22,7 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useState } from "react";
+import SkeletonLoader from "@/components/SkeletonLoader";
 
 type Props = {};
 
@@ -33,10 +33,14 @@ export default function Dashboard({}: Props) {
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      distance: 10
-    }
-  })
- const sensors = useSensors(mouseSensor, useSensor(TouchSensor), useSensor(KeyboardSensor))
+      distance: 10,
+    },
+  });
+  const sensors = useSensors(
+    mouseSensor,
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor)
+  );
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id);
@@ -55,8 +59,7 @@ export default function Dashboard({}: Props) {
     setActiveId(null);
   };
 
-  if (isWaiting.isTodoFetching)
-    return <Spinner size="lg" className="centered" />;
+  if (isWaiting.isTodoFetching) return <SkeletonLoader />;
 
   if (todos.length === 0)
     return (
@@ -84,7 +87,7 @@ export default function Dashboard({}: Props) {
         <FilterTodos />
       </div>
       <DndContext
-      sensors={sensors}
+        sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
@@ -119,7 +122,6 @@ export default function Dashboard({}: Props) {
                 />
               );
             })}
-          {/* <p>Active Todo Overlay {activeId}</p> */}
         </DragOverlay>
       </DndContext>
       <CreateTodo />
