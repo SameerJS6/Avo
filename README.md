@@ -14,8 +14,8 @@ Avo is a full-stack Todo application built using Firebase, Framer Motion, etc. I
 
 ## Demo
 
-![](/mockups/Avo.mp4)
-<video src="/mockups/Avo.mp4" width="640" height="480" controls></video>
+<video src="mockups/Avo.mp4" width="640" height="480" controls autoplay></video>
+
 - You can try out a live demo of Avo [here](https://avo-todo.netlify.app/).
 
 ## Features
@@ -30,9 +30,11 @@ Avo is a full-stack Todo application built using Firebase, Framer Motion, etc. I
 - **Responsive Design**: Whether you're on a desktop or mobile device, Avo adapts and provides a seamless experience.
 
 ## Mockups
+
 ![](/mockups/mobile.jpg)
 ![](/mockups/desktop.jpg)
 ![](/mockups/mobile2.jpg)
+
 ## Build Process
 
 So, here's how this project unfolded:
