@@ -39,7 +39,7 @@ export default function Logout({ style = false }: LogoutProps) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5 mr-1.5"
+            className="mr-1.5 h-5 w-5"
           >
             <path
               strokeLinecap="round"
@@ -67,7 +67,7 @@ export default function Logout({ style = false }: LogoutProps) {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-5 h-5"
+              className="h-5 w-5"
             >
               <path
                 strokeLinecap="round"

@@ -77,11 +77,11 @@
 
 article[data-overlay="false"]::after,
 article[data-overlay="true"]::after {
-  @apply absolute inset-0 transition-all duration-250 ease-in-out content-[""] bg-gradient-to-bl from-primary/5 to-background pointer-events-none z-[-1] rounded-xl opacity-0 scale-95;
+  @apply pointer-events-none absolute inset-0 z-[-1] scale-95 rounded-xl bg-gradient-to-bl from-primary/5 to-background opacity-0 transition-all duration-250 ease-in-out content-[""];
 }
 
 article:hover[data-overlay="false"]::after {
-  @apply opacity-100 scale-100;
+  @apply scale-100 opacity-100;
 }
 
 /* Scroll Bar Styling  */
@@ -107,9 +107,6 @@ article:hover[data-overlay="false"]::after {
 }
 
 /* Utility Class  */
-.completedTodo {
-  scale: 95%;
-}
 
 .centered {
   display: grid;

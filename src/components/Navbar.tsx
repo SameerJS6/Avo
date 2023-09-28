@@ -20,12 +20,12 @@ export default function Navbar({}: Props) {
   return (
     <NavbarUI shouldHideOnScroll>
       <NavbarBrand>
-        <div className="flex items-center justify-between w-full">
-          <Link to="/" className="font-bold text-3xl text-inherit">
+        <div className="flex w-full items-center justify-between">
+          <Link to="/" className="text-3xl font-bold text-inherit">
             AVO
           </Link>
           {currentUser && (
-            <div className="flex gap-2 lg:hidden items-center">
+            <div className="flex items-center gap-2 lg:hidden">
               <ThemeToggle />
               <Sidebar />
             </div>
@@ -34,13 +34,13 @@ export default function Navbar({}: Props) {
       </NavbarBrand>
 
       {currentUser && (
-        <NavbarContent justify="end" className="items-center hidden lg:flex ">
+        <NavbarContent justify="end" className="hidden items-center lg:flex ">
           <NavLink
             to="/"
             className={({ isActive }) =>
               isActive
-                ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
+                ? "h-9 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                : "h-9 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
             }
           >
             Home
@@ -49,8 +49,8 @@ export default function Navbar({}: Props) {
             to="/dashboard"
             className={({ isActive }) =>
               isActive
-                ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
+                ? "h-9 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                : "h-9 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
             }
           >
             Todos

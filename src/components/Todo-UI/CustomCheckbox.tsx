@@ -1,14 +1,13 @@
 import { useNotes } from "@/context/NotesContext";
 import { Checkbox, Tooltip } from "@nextui-org/react";
 
-
 type CheckboxProps = {
-    id: string
-    isCompleted: boolean
-}
+  id: string;
+  isCompleted: boolean;
+};
 
-export default function CustomCheckbox({id, isCompleted}: CheckboxProps) {
-    const {updateComplete} = useNotes()
+export default function CustomCheckbox({ id, isCompleted }: CheckboxProps) {
+  const { updateComplete } = useNotes();
   return (
     <Tooltip
       content={isCompleted ? "Mark as Active" : "Mark as Completed"}
@@ -22,8 +21,8 @@ export default function CustomCheckbox({id, isCompleted}: CheckboxProps) {
       <form
         className={`${
           isCompleted
-            ? "opacity-50 pointer-events-auto"
-            : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto invisible group-hover:visible group-focus-visible:visible group-focus-visible:opacity-100 group-focus-visible:pointer-events-auto "
+            ? "pointer-events-auto opacity-50"
+            : "pointer-events-none invisible opacity-0 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:visible group-focus-visible:opacity-100 "
         }   tranition-all duration-250 ease-in-out`}
         onSubmit={(e) => e.preventDefault()}
       >

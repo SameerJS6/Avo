@@ -1,6 +1,5 @@
 import {
   Dialog,
-  //   DialogTrigger,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -19,11 +18,17 @@ export default function EditTodo({}: EditTodoProps) {
   const { editingTodo, editTodo, setEditingTodo, isWaiting, setIsWaiting } =
     useNotes();
 
-    const handleCloseEditModal = () => {
-      setIsWaiting(prevIsWaiting => ({
-        ...prevIsWaiting, isEditing: false
-      }))
-    }
+  const handleCloseEditModal = () => {
+    setIsWaiting((prevIsWaiting) => ({
+      ...prevIsWaiting,
+      isEditing: false,
+    }));
+  };
+
+  const edit = () => {
+    if (!editingTodo[0].title || !editingTodo[0].description) return;
+    editTodo()
+  }
   return (
     <Dialog open={isWaiting.isEditing} onOpenChange={handleCloseEditModal}>
       <DialogContent className="createModalWidth rounded-lg">
@@ -37,7 +42,7 @@ export default function EditTodo({}: EditTodoProps) {
         </DialogHeader>
         <div>
           <form>
-            <div className="grid w-full gap-4 items-center">
+            <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="title">Title</Label>
                 <Input
@@ -50,7 +55,7 @@ export default function EditTodo({}: EditTodoProps) {
                     updatedTodo[0].title = e.target.value;
                     setEditingTodo(updatedTodo);
                   }}
-                  className=" sm:text-lg font-semibold max-sm:leading-7 sm:py-5 placeholder:font-medium placeholder:tracking-[0.15px]"
+                  className=" font-semibold placeholder:font-medium placeholder:tracking-[0.15px] max-sm:leading-7 sm:py-5 sm:text-lg"
                   placeholder="Enter your Title"
                 />
               </div>
@@ -81,8 +86,8 @@ export default function EditTodo({}: EditTodoProps) {
             Cancel
           </Button>
           <Button
-            onClick={editTodo}
-            className="active:scale-95 transition-all duration-250Type '(id: string) => Promise<void>' is not assignable to type 'Mous ease-in-out"
+            onClick={edit}
+            className="duration-250Type '(id: string) => Promise<void>' is not assignable to type 'Mous transition-all ease-in-out active:scale-95"
           >
             Update
           </Button>

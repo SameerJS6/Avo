@@ -25,7 +25,7 @@ export default function Sidebar({}: Props) {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-7 h-7"
+          className="h-7 w-7"
         >
           <path
             strokeLinecap="round"
@@ -40,14 +40,14 @@ export default function Sidebar({}: Props) {
           <SheetTitle>AVO</SheetTitle>
         </SheetHeader>
 
-        <div className="my-12 gap-4 flex flex-col">
+        <div className="my-12 flex flex-col gap-4">
           <NavLink
             to="/"
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               isActive
-                ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
+                ? "h-9 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                : "h-9 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
             }
           >
             Home
@@ -57,8 +57,8 @@ export default function Sidebar({}: Props) {
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               isActive
-                ? "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                : "hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2"
+                ? "h-9 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                : "h-9 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
             }
           >
             Todos
@@ -72,7 +72,7 @@ export default function Sidebar({}: Props) {
             href="https://github.com/SameerJS6"
             className={buttonVariants({ variant: "ghost", size: "lg" })}
           >
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center gap-2">
               <GitHubLogoIcon height={18} width={18} /> Github
             </div>
           </a>

@@ -183,6 +183,14 @@ const NotesProvider = ({ children }: NotesProviderProps) => {
     const todoToEdit = editingTodo[0];
     const todo = doc(db, "todos", userId!, "documents", todoToEdit.id);
     try {
+      if (!todoToEdit.title || !todoToEdit.description) {
+         toast({
+          type: 'foreground',
+          title: "Input Can't be empty",
+          description: "You can't update a todo with empty inputs!",
+        })
+        return;
+      }
       await updateDoc(todo, {
         title: todoToEdit.title,
         description: todoToEdit.description,

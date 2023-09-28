@@ -56,7 +56,7 @@ export default function DemoLogin({
       disabled={isLoading}
       variant="secondary"
       onClick={handleDemoLogin}
-      className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2 "
+      className="w-full gap-2 disabled:cursor-not-allowed disabled:opacity-50 "
     >
       {isLoading ? <Spinner size="sm" color="default" /> : null}
       {isLoading ? "" : "Test it out"}

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import CustomCheckbox from "./CustomCheckbox";
 
 type TodoProps = {
@@ -46,11 +46,11 @@ export default function Todo({
       style={dndStyle}
       className={`${
         isCompleted
-          ? "bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through completedTodo"
-          : "group bg-gradient-to-tl from-secondary text-secondary-foreground hover:shadow-md scale-100 hover:border-primary/20"
+          ? "scale-95 bg-gradient-to-tr from-muted/80 to-border/25 text-muted-foreground line-through"
+          : "group scale-100 bg-gradient-to-tl from-secondary text-secondary-foreground hover:border-primary/20 hover:shadow-md"
       } ${
         isDragging ? "pointer-events-none" : "pointer-events-auto"
-      } relative p-4 grid rounded-xl space-y-2 border border-border md:space-y-4 transition-all duration-250 ease-in-out isolate touch-manipulation`}
+      } relative isolate grid touch-manipulation space-y-2 rounded-xl border border-border p-4 transition-all  ease-in-out md:space-y-4`}
       variants={{
         hidden: () => ({
           opacity: 0,
@@ -71,9 +71,9 @@ export default function Todo({
       <div
         className={`${
           isCompleted ? "opacity-50" : ""
-        } flex justify-between items-center gap-4`}
+        } flex items-center justify-between gap-4`}
       >
-        <h1 className="text-lg sm:text-xl font-semibold tracking-tight">
+        <h1 className="text-lg font-semibold tracking-tight sm:text-xl">
           {title}
         </h1>
         <Button
@@ -81,12 +81,12 @@ export default function Todo({
           {...listeners}
           variant="ghost"
           size="icon"
-          className="cursor-grab active:cursor-grabbing touch-manipulation"
+          className="cursor-grab touch-manipulation active:cursor-grabbing"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
-            className="w-4 h-4 fill-current"
+            className="h-4 w-4 fill-current"
           >
             <path d="M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z" />
           </svg>
@@ -97,7 +97,7 @@ export default function Todo({
         {description}
       </p>
 
-      <div className="flex items-center self-end flex-row-reverse justify-between gap-4 translate-y-1 group-hover:translate-y-0 transition-transform duration-250 ease-in-out">
+      <div className="flex translate-y-1 flex-row-reverse items-center justify-between gap-4 self-end transition-transform duration-250 ease-in-out group-hover:translate-y-0">
         <div className="space-x-2">
           <EditButton id={id} isCompleted={isCompleted} />
           <DeleteButton id={id} isCompleted={isCompleted} />

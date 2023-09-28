@@ -39,7 +39,7 @@ export default function GoogleSignIn({}: Props) {
     <Button
       disabled={isLoading}
       onClick={handleGoogleLogin}
-      className="w-full gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="w-full gap-2 disabled:cursor-not-allowed disabled:opacity-50"
       variant="outline"
       size="lg"
     >

@@ -1,6 +1,6 @@
 import { useNotes } from "@/context/NotesContext";
 import { Tooltip } from "@nextui-org/react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { TrashIcon } from "@radix-ui/react-icons";
 
 type DeleteButtonProps = { id: string; isCompleted: boolean };
@@ -24,7 +24,7 @@ export default function DeleteButton({ id, isCompleted }: DeleteButtonProps) {
         disabled={isCompleted}
         className={`${
           isCompleted ? "pointer-events-none disabled:opacity-0" : null
-        } pointer-events-none invisible group-hover:visible group-focus-visible:visible group-focus-visible:opacity-100 group-focus-visible:pointer-events-auto opacity-0 group-hover:opacity-100 group-hover:pointer-events-auto tranition-all duration-250 ease-in-out`}
+        } tranition-all pointer-events-none invisible opacity-0 duration-250 ease-in-out group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:visible group-focus-visible:opacity-100`}
       >
         <TrashIcon />
       </Button>

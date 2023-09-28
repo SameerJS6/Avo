@@ -46,14 +46,14 @@ export default function CreateTodo({}: Props) {
           <DialogTrigger asChild>
             <Button
               size="icon"
-              className="fixed bottom-12 right-8 sm:right-12 lg:bottom-16 lg:right-16 p-8 transition-all duration-250 ease-in-out shadow-lg rounded-2xl active:scale-95 slide-in"
+              className="slide-in fixed bottom-12 right-8 rounded-2xl p-8 shadow-lg transition-all duration-250 ease-in-out active:scale-95 sm:right-12 lg:bottom-16 lg:right-16"
             >
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
-                  className="w-6 h-6 sm:w-7 sm:h-7 stroke-primary-foreground"
+                  className="h-6 w-6 stroke-primary-foreground sm:h-7 sm:w-7"
                 >
                   <path
                     strokeLinecap="round"
@@ -76,7 +76,7 @@ export default function CreateTodo({}: Props) {
           </DialogHeader>
           <div>
             <form onSubmit={(e) => e.preventDefault()}>
-              <div className="grid w-full gap-4 items-center">
+              <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="title">Title</Label>
                   <Input
@@ -86,7 +86,7 @@ export default function CreateTodo({}: Props) {
                     autoComplete="off"
                     value={(todoDetails && todoDetails?.title) || ""}
                     onChange={handleTodoDetails}
-                    className=" sm:text-lg font-semibold max-sm:leading-7 sm:py-5 placeholder:font-medium placeholder:tracking-[0.15px]"
+                    className=" font-semibold placeholder:font-medium placeholder:tracking-[0.15px] max-sm:leading-7 sm:py-5 sm:text-lg"
                     placeholder="Enter your Title"
                   />
                 </div>
@@ -112,7 +112,7 @@ export default function CreateTodo({}: Props) {
             </Button>
             <Button
               onClick={createTodo}
-              className="active:scale-95 transition-all duration-250 ease-in-out"
+              className="transition-all duration-250 ease-in-out active:scale-95"
             >
               Create
             </Button>

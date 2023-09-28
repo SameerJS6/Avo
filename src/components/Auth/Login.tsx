@@ -99,7 +99,7 @@ export default function Login({}: Props) {
           <GoogleSignIn />
           <Separator className="my-5" />
           <form onSubmit={handleSubmit}>
-            <div className="grid w-full gap-4 items-center">
+            <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -123,7 +123,7 @@ export default function Login({}: Props) {
               </div>
               <Button
                 disabled={isLoading}
-                className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+                className="w-full gap-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isLoading ? <Spinner size="sm" color="default" /> : null}
                 {isLoading ? "Logging In..." : "Log In"}

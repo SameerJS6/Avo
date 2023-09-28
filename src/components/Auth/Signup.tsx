@@ -83,7 +83,7 @@ export default function Signup({}: Props) {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
-            <div className="grid w-full gap-4 items-center">
+            <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -119,7 +119,7 @@ export default function Signup({}: Props) {
               <Button
                 disabled={isLoading}
                 size="lg"
-                className="w-full disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+                className="w-full gap-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isLoading ? <Spinner size="sm" color="default" /> : null}
                 {isLoading ? "Signing Up..." : "Sign Up"}
@@ -130,7 +130,7 @@ export default function Signup({}: Props) {
         <CardFooter className="flex flex-col gap-2">
           <CardDescription>
             Already have an Account!
-            <Button variant="link" className="p-0 ml-1">
+            <Button variant="link" className="ml-1 p-0">
               <Link to="/login">Log In</Link>
             </Button>
           </CardDescription>

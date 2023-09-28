@@ -1,9 +1,9 @@
 import { useNotes } from "@/context/NotesContext";
 import CreateTodo from "./CreateTodo";
 import EditTodo from "./EditTodo";
-import Todo from "@/components/Todo";
+import Todo from "@/components/Todo-UI/Todo";
 import { AnimatePresence, motion } from "framer-motion";
-import FilterTodos from "@/components/FilterTodos";
+import FilterTodos from "@/components/Todo-UI/FilterTodos";
 import {
   DndContext,
   closestCenter,
@@ -22,7 +22,7 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useState } from "react";
-import SkeletonLoader from "@/components/SkeletonLoader";
+import SkeletonLoader from "@/components/Todo-UI/SkeletonLoader";
 
 type Props = {};
 
@@ -39,7 +39,7 @@ export default function Dashboard({}: Props) {
   const sensors = useSensors(
     mouseSensor,
     useSensor(TouchSensor),
-    useSensor(KeyboardSensor)
+    useSensor(KeyboardSensor),
   );
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -65,7 +65,7 @@ export default function Dashboard({}: Props) {
     return (
       <main>
         <motion.h1
-          className="centered bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
+          className="centered bg-gradient-to-br from-foreground to-primary/50 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 25, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5 }}
@@ -77,10 +77,10 @@ export default function Dashboard({}: Props) {
     );
 
   return (
-    <main className="max-w-[1980px] minHeight mx-auto py-8 px-4 sm:py-16 sm:px-8 lg:p-24 xl:p-28 xl:py-20 space-y-10 md:space-y-16">
-      <div className="flex justify-between items-center md:items-end gap-4">
+    <main className="minHeight mx-auto max-w-[1980px] space-y-10 px-4 py-8 sm:px-8 sm:py-16 md:space-y-16 lg:p-24 xl:p-28 xl:py-20">
+      <div className="flex items-center justify-between gap-4 md:items-end">
         <motion.h1
-          className="w-[5.5ch] text-4xl uppercase font-bold tracking-tighter sm:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-br from-foreground to-primary/50"
+          className="w-[5.5ch] bg-gradient-to-br from-foreground to-primary/50 bg-clip-text text-4xl font-bold uppercase tracking-tighter text-transparent sm:text-5xl lg:text-6xl"
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -95,7 +95,7 @@ export default function Dashboard({}: Props) {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className="grid min-[550px]:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid gap-4 min-[550px]:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence>
             <SortableContext items={todos} strategy={rectSortingStrategy}>
               {todos.map((todo, index) => {
