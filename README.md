@@ -41,15 +41,15 @@ So, here's how this project unfolded:
 
 ### Inception 🌱
 
-I kicked off this project as a way to dip my toes into Firebase for the first time. It all started with a simple thought: `"Let's test Firebase authentication."` However, my initial attempt at authentication had its `quirks`, but no worries—it was just a test run.
+I kicked off this project as a way to dip my toes into Firebase for the first time. It all started with a simple thought: **"Let's test Firebase authentication."** However, my initial attempt at authentication had its **quirks**, but no worries—it was just a test run.
 
 ### Transition to noteSync 📝
 
-Once I had authentication up and running for [noteSync](https://github.com/SameerJS6/NoteSync/), then I realized I was going to use Firestore Database for noteSync, so why not give that a test run as well? The thought crossed my mind: `"Hey, why not build a to-do app?"` It was something I'd never done before.
+Once I had authentication up and running for [noteSync](https://github.com/SameerJS6/NoteSync/), then I realized I was going to use Firestore Database for noteSync, so why not give that a test run as well? The thought crossed my mind: **"Hey, why not build a to-do app?"** It was something I'd never done before.
 
 ### Birth of Avo 🥑
 
-With that spark of inspiration, I embarked on creating a Full Stack To-Do Application, which I affectionately named `"Avo"`. At first, I thought it would be a `piece of cake`, but as history would have it, my projects often prove to be more challenging than anticipated.
+With that spark of inspiration, I embarked on creating a Full Stack To-Do Application, which I affectionately named **"Avo"**. At first, I thought it would be a **piece of cake**, but as history would have it, my projects often prove to be more challenging than anticipated.
 
 ### Authentication Smooth Sailing 🚤
 
@@ -63,19 +63,19 @@ Next on my list was creating a user-friendly interface for adding to-dos and the
 
 CRUD, you say? Well, it wasn't a walk in the park. Reading data from Firestore had its quirks at first, but I eventually got the hang of it. I retrieved the data, stored it using `useState`, and seamlessly displayed those to-dos on the screen.
 
-Creating to-dos took some time to grasp, but I conquered it. Deleting, surprisingly, turned out to be a breeze. However, the ultimate boss battle awaited: `"Edit"` functionality.
+Creating to-dos took some time to grasp, but I conquered it. Deleting, surprisingly, turned out to be a breeze. However, the ultimate boss battle awaited: **"Edit"** functionality.
 
 ### Conquering the Edit Challenge 💪
 
-Implementing the `"Edit"` functionality proved to be one of the most formidable tasks I've undertaken. Hours turned into days as I delved into Firebase documents, scoured Google searches, consulted ChatGPT, and binge-watched countless YouTube tutorials. But guess what? I emerged victorious, armed with newfound knowledge to tackle the challenge head-on.
+Implementing the **"Edit"** functionality proved to be one of the most formidable tasks I've undertaken. Hours turned into days as I delved into Firebase documents, scoured Google searches, consulted ChatGPT, and binge-watched countless YouTube tutorials. But guess what? I emerged victorious, armed with newfound knowledge to tackle the challenge head-on.
 
 ### The Security Dilemma 🔐
 
-Just when I thought the `hard part was over`, I made an alarming discovery. Despite my earlier assumptions, data security was a bit shaky. `If I created three to-dos with account A, someone logged in with account B could see, delete, create, and edit all those to-dos`. This was a glaring issue that demanded a solution.
+Just when I thought the **hard part was over**, I made an alarming discovery. Despite my earlier assumptions, data security was a bit shaky. **If I created three to-dos with account A, someone logged in with account B could see, delete, create, and edit all those to-dos**. This was a glaring issue that demanded a solution.
 
 ### Firestore Rules and Database Restructuring 📜
 
-Firestore rules became my new `nemesis`. I had to rewrite the rules and perform a complete overhaul of the database structure, changing how I stored data. It took me about 1-1.5 days to realize that my Firestore rules were correct; it was the data structure that needed a revamp.
+Firestore rules became my new **nemesis**. I had to rewrite the rules and perform a complete overhaul of the database structure, changing how I stored data. It took me about 1-1.5 days to realize that my Firestore rules were correct; it was the data structure that needed a revamp.
 
 With the guidance of Firebase documentation on rules, I restructured the database from a single "Todos" collection with documents to a structure that included user-specific collections. This alteration finally ensured that each user could only interact with their own to-dos.
 
@@ -89,7 +89,7 @@ As I wrapped things up, I decided to sprinkle some animation magic using Framer 
 
 ### The Surprise Element: Drag and Drop 🎉
 
-While admiring my creation, `imposter` syndrome crept in. I felt like my project needed something extra. And what could be fancier than implementing Drag and Drop functionality?
+While admiring my creation, **imposter** syndrome crept in. I felt like my project needed something extra. And what could be fancier than implementing Drag and Drop functionality?
 
 ### A Handy Library Discovery 📚
 
