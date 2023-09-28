@@ -14,7 +14,7 @@ Avo is a full-stack Todo application built using Firebase, Framer Motion, etc. I
 
 ## Demo
 
-<video src="mockups/Avo.mp4" width="640" height="480" controls autoplay></video>
+<video src="mockups/Avo.mp4" width="640" height="480" controls></video>
 
 - You can try out a live demo of Avo [here](https://avo-todo.netlify.app/).
 
@@ -149,7 +149,7 @@ These challenges, while demanding, were also incredibly rewarding. They shaped A
 
 I want to give a big shoutout to these amazing folks who made a real difference during this project:
 
-- [**Sam Selikoff:**](<(https://www.youtube.com/@samselikoff)>) Big thanks to Sam for his awesome Framer Motion animation tutorial. It seriously brought some magic to this app!
+- [**Sam Selikoff:**](https://www.youtube.com/@samselikoff) Big thanks to Sam for his awesome Framer Motion animation tutorial. It seriously brought some magic to this app!
 
 - [**Pedro Tech:**](https://www.youtube.com/@PedroTechnologies) Huge props to Pedro Tech for his super-helpful Firebase authentication resources. They made our authentication rock-solid.
 
