@@ -93,7 +93,11 @@ export default function Todo({
         </Button>
       </div>
 
-      <p className={`${isCompleted ? "opacity-50" : ""} leading-6`}>
+      <p
+        className={`${
+          isCompleted ? "opacity-50" : ""
+        } max-h-40 overflow-y-auto leading-6`}
+      >
         {description}
       </p>
 

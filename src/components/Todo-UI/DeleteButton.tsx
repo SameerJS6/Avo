@@ -21,10 +21,12 @@ export default function DeleteButton({ id, isCompleted }: DeleteButtonProps) {
         onClick={() => removeTodo(id)}
         variant="destructive"
         size="icon"
-        disabled={isCompleted}
+        // disabled={isCompleted}
         className={`${
-          isCompleted ? "pointer-events-none disabled:opacity-0" : null
-        } tranition-all pointer-events-none invisible opacity-0 duration-250 ease-in-out group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:visible group-focus-visible:opacity-100`}
+          isCompleted
+            ? "pointer-events-auto visible opacity-50"
+            : "pointer-events-none invisible opacity-0 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:visible group-focus-visible:opacity-100"
+        } transition-all duration-250 ease-in-out `}
       >
         <TrashIcon />
       </Button>
