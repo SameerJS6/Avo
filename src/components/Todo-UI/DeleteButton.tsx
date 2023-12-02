@@ -21,7 +21,6 @@ export default function DeleteButton({ id, isCompleted }: DeleteButtonProps) {
         onClick={() => removeTodo(id)}
         variant="destructive"
         size="icon"
-        // disabled={isCompleted}
         className={`${
           isCompleted
             ? "pointer-events-auto visible opacity-90"
